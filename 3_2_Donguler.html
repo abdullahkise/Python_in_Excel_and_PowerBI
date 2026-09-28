@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>2_2_TarihveZamanTipi</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>3_2_Donguler</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7511,27 +7511,38 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5ca1d95a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0edc5210">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Tarih-ve-Zaman-Tipleri">Tarih ve Zaman Tipleri<a class="anchor-link" href="#Tarih-ve-Zaman-Tipleri">¶</a></h1><ul>
-<li>standart tipler arasında zaman ve tarih ile ilgili tipler de bulunmaktadır.</li>
-<li>Standart kütüphaneler arasında <code>datetime</code> modülü zaman ve tarih ile ilgili işlemler için kullanılmaktadır.</li>
-<li><code>from datetime import datetime, date, time, timedelta</code><ul>
-<li>datetime: tarih ve zaman ile ilgili işlemler için kullanılır.</li>
-<li>date: sadece tarih ile ilgili işlemler için kullanılır.</li>
-<li>time: sadece zaman ile ilgili işlemler için kullanılır.</li>
-<li>timedelta: iki tarih/zaman arasındaki farkı temsil eder.</li>
-</ul>
-</li>
+<h2 id="D%C3%B6ng%C3%BCler">Döngüler<a class="anchor-link" href="#D%C3%B6ng%C3%BCler">¶</a></h2><ul>
+<li>for</li>
+<li>list comprehension</li>
+<li>while-else</li>
 </ul>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7525378e">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=97769351">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="for-d%C3%B6ng%C3%BCs%C3%BC">for döngüsü<a class="anchor-link" href="#for-d%C3%B6ng%C3%BCs%C3%BC">¶</a></h3><ul>
+<li>iterasyon yapılabilebilecek (içinde nesneler olan ve bu nesnelere erişmeyle ilgili bir alt yapıya sahip olan nesneler) elemanlarına tek tek ulaşmamızı sağlar.</li>
+<li>for içerisinde bu ulaşılan elemanlarla çalışılabilir.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">Eleman</span> <span class="ow">in</span> <span class="n">ElemanContaineri</span><span class="p">:</span>
+    <span class="c1">#her bir Eleman ile çalışabiliyoruz.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8564226d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7539,32 +7550,12 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">timedelta</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bfa0a251">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">bugun</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-
-<span class="c1">#type(bugun) #datetime.date</span>
-<span class="c1">#dir(bugun)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">kisiler</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ali"</span><span class="p">,</span><span class="s2">"Veli"</span><span class="p">,</span><span class="s2">"Ayşe"</span><span class="p">]</span>
 
 <span class="c1">#</span>
-<span class="n">bugun</span><span class="o">.</span><span class="n">year</span>
-<span class="n">bugun</span><span class="o">.</span><span class="n">month</span>
-<span class="n">bugun</span><span class="o">.</span><span class="n">day</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">bugun</span><span class="p">)</span> <span class="c1">#print ile yazdırnda ISO formatında Yıl-Ay-Gun formatında yazar.</span>
-<span class="n">bugun</span> <span class="c1">#bu bir date nesnesi. Ekrana geliştiriciler ne göstermek istedi ise o görünüyor.</span>
+<span class="k">for</span> <span class="n">kisi</span> <span class="ow">in</span> <span class="n">kisiler</span><span class="p">:</span>
+    <span class="c1">#her bir kisiler listesi elemına erişebileceğim. bu eleman içeride kisi değişkeni ile temsil edilecek.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kisi</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="c1">#str.upper büyük harfle yazmamızı sağlar.</span>
 </pre></div>
 </div>
 </div>
@@ -7577,105 +7568,43 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-09-23
+<pre>ALI
+VELI
+AYŞE
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=827ea50a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">simdi</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="n">simdi</span><span class="o">.</span><span class="n">year</span>
-<span class="n">simdi</span><span class="o">.</span><span class="n">hour</span>
-
-<span class="c1">#</span>
-<span class="n">simdi</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="c1">#date nesnesi</span>
-<span class="n">simdi</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
-
-
-<span class="c1">#</span>
-<span class="n">simdi</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1">#time nesnesi</span>
-<span class="n">simdi</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">hour</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>21</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d4c1c4f5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=47c6d2ea">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Tarih-Olu%C5%9Fturmak-i%C3%A7in">Tarih Oluşturmak için<a class="anchor-link" href="#Tarih-Olu%C5%9Fturmak-i%C3%A7in">¶</a></h2>
+<h4 id="range">range<a class="anchor-link" href="#range">¶</a></h4>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bf33bba0">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f705c25e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#1. yöntem: tip üzerinden oluşturulabilir.</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2026</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
-<span class="n">t</span> <span class="c1">#date tipinden tarih oluştu.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>datetime.date(2026, 9, 22)</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6a614818">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#2. yöntem: metin üzerinden tarih oluşturulabilir.</span>
-<span class="c1">#metnin hangi formatta girileceğini string format karakterleri ile belirtiriz.</span>
-<span class="c1">#yıl için %Y, ay için %m ve gün için %d kullanılır. Diğerleri notlardaki resimde.</span>
-<span class="c1">#strptime: zamanı parse etmek için kullanır.</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"22-09-2026"</span><span class="p">,</span> <span class="s2">"</span><span class="si">%d</span><span class="s2">-%m-%Y"</span><span class="p">)</span> <span class="c1">#strptime sadece datetime tipi üzerinde mevcut</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#sistem başka container tipler de var. Bunlar farklı kütüphanelerde veya standart kütüphaneler veya gömülü nesneler arasonda bulunabilir.</span>
+<span class="c1">#en kullanışlı olanlardan biri de range fonksiyonudur.</span>
+<span class="c1">#range(start , stop, step) # ile bir sayı grubu bize verir.</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 
-<span class="n">t</span> <span class="c1">#datetime</span>
+<span class="c1">#range(0,5,1)</span>
+<span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1">#geriye içinde 0,1,2,3,4 sayılarını olduğu bir nesne döner. Biz bu nesneyi list tipine çevirip vbakabiliriz. veya for ile range elemanlarına erişebiliriz.</span>
+
+<span class="c1">#</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -7686,35 +7615,156 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>datetime.datetime(2026, 9, 22, 0, 0)</pre>
+<pre>[0, 1, 2, 3, 4]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=59c47be5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#soru:</span>
+<span class="c1">#1-10 arsındaki 3'e tam bölünen sayılara bakalım.</span>
+<span class="c1">#sayilar = [1,2,3,4,5,6,7,8,9]</span>
+<span class="n">sayilar</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span> <span class="c1">#1-10 sayılarını tutar. for ile elemanlarına erişilebilir.</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sayilar</span><span class="p">:</span>
+    <span class="c1">#her bir sayi s olarak temsil edilecek.</span>
+    <span class="c1">#s 3'e bölümünden kalan sıfır ise yani tam bölünürse </span>
+    <span class="k">if</span> <span class="n">s</span><span class="o">%</span><span class="k">3</span>==0:
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>3
+6
+9
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9f4843e0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#soru:</span>
+<span class="c1">#0-100 sayıları arasındaki 14'e tam bölünenlerin adedini, kendisini ve max, min değerlerini getirelim.</span>
+<span class="n">sayilar</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span> <span class="c1">#0-100 arasıdaki sayılar</span>
+
+<span class="c1">#</span>
+<span class="n">lst_tamBolunenler</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#boş liste olsun. tam bölünenleri burada toplayacağız.</span>
+
+<span class="c1">#</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sayilar</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">s</span><span class="o">%</span><span class="k">14</span>==0:
+        <span class="c1">#print(s)</span>
+        <span class="n">lst_tamBolunenler</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="c1"># #for döngüsü bitti</span>
+<span class="c1"># lst_tamBolunenler #tam bolunenlerin kendisi</span>
+<span class="c1"># len(lst_tamBolunenler) #eleman sayısı</span>
+<span class="c1"># max(lst_tamBolunenler) #en büyük değer</span>
+<span class="c1"># min(lst_tamBolunenler) #en küçük değer</span>
+
+<span class="c1">#</span>
+<span class="n">dict_sonuclar</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"tamBolunenler"</span><span class="p">:</span><span class="n">lst_tamBolunenler</span><span class="p">,</span>
+    <span class="s2">"adet"</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">lst_tamBolunenler</span><span class="p">),</span>
+    <span class="s2">"enBuyuk"</span><span class="p">:</span><span class="nb">max</span><span class="p">(</span><span class="n">lst_tamBolunenler</span><span class="p">),</span>
+    <span class="s2">"enKucuk"</span><span class="p">:</span><span class="nb">min</span><span class="p">(</span><span class="n">lst_tamBolunenler</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="n">dict_sonuclar</span>
+<span class="c1">#---------------------------------</span>
+<span class="c1">#mesajda bunları yazalım</span>
+<span class="c1">## f-string yöntemi</span>
+<span class="c1"># mesaj = f"""</span>
+<span class="c1"># Verilen aralıktaki 14'e tam bölünen sayilar {dict_sonuclar["tamBolunenler"]} olarak tespit edildi.</span>
+<span class="c1"># Bu sayıların adedi {dict_sonuclar["adet"]} dur.</span>
+<span class="c1"># Sayıların en büyüğü {dict_sonuclar["enBuyuk"]} ve en küçüğü {dict_sonuclar["enKucuk"]} olarak bulundu.</span>
+<span class="c1"># """</span>
+
+<span class="c1">#format_map yöntemi</span>
+<span class="n">mesaj</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Verilen aralıktaki 14'e tam bölünen sayilar </span><span class="si">{tamBolunenler}</span><span class="s2"> olarak tespit edildi.</span>
+<span class="s2">Bu sayıların adedi </span><span class="si">{adet}</span><span class="s2"> dur.</span>
+<span class="s2">Sayıların en büyüğü </span><span class="si">{enBuyuk}</span><span class="s2"> ve en küçüğü </span><span class="si">{enKucuk}</span><span class="s2"> olarak bulundu.</span>
+<span class="s2">"""</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">dict_sonuclar</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">mesaj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Verilen aralıktaki 14'e tam bölünen sayilar [0, 14, 28, 42, 56, 70, 84, 98] olarak tespit edildi.
+Bu sayıların adedi 8 dur.
+Sayıların en büyüğü 98 ve en küçüğü 0 olarak bulundu.
+
+</pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3267bb5b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0053e4f0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Tarih-G%C3%BCncellemek">Tarih Güncellemek<a class="anchor-link" href="#Tarih-G%C3%BCncellemek">¶</a></h2>
+<h4 id="list-comphrension-y%C3%B6ntemi">list comphrension yöntemi<a class="anchor-link" href="#list-comphrension-y%C3%B6ntemi">¶</a></h4><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">herBirElemanIleYapılacaklar</span> <span class="k">for</span> <span class="n">eleman</span> <span class="ow">in</span> <span class="n">Nesne</span><span class="p">]</span>
+<span class="p">[</span><span class="n">ŞartaUyanherBirElemanIleYapılacaklar</span> <span class="k">for</span> <span class="n">eleman</span> <span class="ow">in</span> <span class="n">Nesne</span> <span class="k">if</span> <span class="n">şart</span><span class="p">]</span>
+</pre></div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ecd82549">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1b307cb2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">day</span> <span class="o">=</span> <span class="mi">23</span><span class="p">)</span> <span class="c1">#tarih gününü artık 23 yapıyoruz. orjinalini etkilelemez. tekrar yanı tipe atama yapalım</span>
-
-<span class="n">t</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#soru: 10-20 arsındaki sayılardan çift olanları getirelim.</span>
+<span class="c1">#1. yöntem açık for ve geriye list döndürelim.</span>
+<span class="n">lst_ciftler</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">r</span><span class="o">%</span><span class="k">2</span>==0:
+        <span class="n">lst_ciftler</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">lst_ciftler</span>
 </pre></div>
 </div>
 </div>
@@ -7725,39 +7775,127 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>datetime.datetime(2026, 9, 23, 0, 0)</pre>
+<pre>[10, 12, 14, 16, 18, 20]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1aecf4cf">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#2.list comphrension yöntemi</span>
+<span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span> <span class="k">if</span> <span class="n">r</span><span class="o">%</span><span class="k">2</span>==0] #sonuçta bir liste elde edeceğiz
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[10, 12, 14, 16, 18, 20]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fe7e1a7d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#soru:içinde @ işareti olan veriler gelsin</span>
+<span class="n">veriler</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"abdullahkise@hotmail.com"</span><span class="p">,</span><span class="s2">"e213"</span><span class="p">,</span><span class="s2">"2131"</span><span class="p">,</span><span class="s2">"00090900*"</span><span class="p">]</span>
+
+<span class="c1">#1. yöntem açık for</span>
+<span class="sd">"""</span>
+<span class="sd">lst_sonuclar = []</span>
+<span class="sd">for veri in veriler:</span>
+<span class="sd">    #print(veri)</span>
+<span class="sd">    if "@" in veri:</span>
+<span class="sd">        #print(veri)</span>
+<span class="sd">        lst_sonuclar.append(veri)</span>
+<span class="sd">#</span>
+<span class="sd">lst_sonuclar</span>
+<span class="sd">"""</span>
+<span class="c1">#2. yöntem</span>
+<span class="p">[</span><span class="n">veri</span> <span class="k">for</span> <span class="n">veri</span> <span class="ow">in</span> <span class="n">veriler</span> <span class="k">if</span> <span class="s2">"@"</span> <span class="ow">in</span> <span class="n">veri</span><span class="p">]</span> <span class="c1">#veriler içindeki her bir değer veri olarak temsil edilsin ve içinde @ olan veri gelsin.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[29]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>['abdullahkise@hotmail.com']</pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d4ed5dc6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3e6f5d35">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Tarihi-Farkl%C4%B1-Formatlarda-Yazd%C4%B1ral%C4%B1m">Tarihi Farklı Formatlarda Yazdıralım<a class="anchor-link" href="#Tarihi-Farkl%C4%B1-Formatlarda-Yazd%C4%B1ral%C4%B1m">¶</a></h2><ul>
-<li><code>strftime</code> ile zamanı belli bir formatta yazabiliriz. Yukarıdaki formata string aynen geçerli</li>
+<h3 id="while-else">while-else<a class="anchor-link" href="#while-else">¶</a></h3><ul>
+<li>while yanında belirtilen şart True ürettikçe döngü çalışır. ilk False ürettiğinde else blogu devreye girer. else blogu zorunlu değildir.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">şart</span><span class="p">:</span>
+    <span class="c1">#şart True oldukça bu blok çalışır</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1">#şart'ın False ürettiği ilk noktada döngü durur. durmadan önce else bloguna uğrar.</span>
+</pre></div>
+<ul>
+<li>Tüm döngülerde <code>break</code> kelimesi görüldüğünde döngü durur. <code>continue</code> kelimesi görüldüğünde o noktadan aşağı inmez döngünün başına geçer sonrak adıma atlar</li>
 </ul>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=edd42e07">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=21632173">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">t</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1">#ISO formatı</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sayac</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="c1">#Türk formatı</span>
-<span class="n">t</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%y.%m.%Y - %A %B"</span><span class="p">)</span> <span class="c1">#%A ile gün adını yazar. %B ay adını yazar.</span>
+<span class="c1">#</span>
+<span class="k">while</span> <span class="n">sayac</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">:</span>
+    <span class="c1">#sayac = sayac + 1</span>
+    <span class="n">sayac</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1">#kümülatif atama operatoru ile aynı işi yapabiliriz.</span>
+    <span class="c1">#---------------</span>
+    <span class="c1">#not: if blokları bağımsızdır. yani her bir şart kontrol edilir bağımsız şekilde true üretirse gövdedeki kodları çalışır.</span>
+    <span class="k">if</span> <span class="n">sayac</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">break</span> <span class="c1">#burada artık döngüyü durdur. Döngü bu şekilde durusa else doğal olarak çalışmaz.</span>
+
+    <span class="k">if</span> <span class="n">sayac</span> <span class="o">%</span><span class="k">2</span>==0:
+        <span class="k">continue</span> <span class="c1">#burada dur ve iterasyona devam et.</span>
+    <span class="c1">#---------------</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sayac</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Şarta uymayan bir durumla karşılaıldı </span><span class="si">{</span><span class="n">sayac</span><span class="w"> </span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span> <span class="c1">#place holder için degisken = kullanırsak değişken adı ile degerini birlikte yazar</span>
 </pre></div>
 </div>
 </div>
@@ -7770,117 +7908,52 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-09-23 00:00:00
+<pre>1
+3
+5
 </pre>
 </div>
 </div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>'26.09.2026 - Wednesday September'</pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c1258b3f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Timedelta-ile-zaman-fark%C4%B1-y%C3%B6netimi">Timedelta ile zaman farkı yönetimi<a class="anchor-link" href="#Timedelta-ile-zaman-fark%C4%B1-y%C3%B6netimi">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0d9485dc">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=20c2bcd4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">zamanFarki</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span> <span class="o">-</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="c1">#yıl başına kadar geçen süre #datetime.timedelta(days=99) tipini veriyor.</span>
-<span class="c1">#dir(zamanFarki)</span>
-<span class="n">zamanFarki</span><span class="o">.</span><span class="n">days</span>
-<span class="n">zamanFarki</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>8553600.0</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=50cbc375">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Bugünden 3 hafta sonrası hangi tarihe tekabül ediyor.</span>
-<span class="n">hafta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span> <span class="c1">#7 günlük fark. - + olarak tanımlanabilir</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#örn:</span>
+<span class="c1">#kullanıcı adı ve şifre isteyelim admin 123 gelirse giriş yapılabilsin.</span>
+<span class="c1">#3 tekrar giriş hakkı verelim.</span>
+<span class="c1">#başarılı girişte hoş geldiniz admin yazsın.</span>
+<span class="n">kadi</span> <span class="o">=</span> <span class="n">ksifre</span> <span class="o">=</span> <span class="s2">""</span> <span class="c1">#zincir atama yöntemi ile "" degerler.</span>
+<span class="n">girisHakki</span> <span class="o">=</span> <span class="mi">3</span>
 
-<span class="n">bugun</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="c1">#not(True) = False</span>
+<span class="c1"># not(kadi=="admin" and ksifre  =="123") aşağıdaki ile aynı şeydir.</span>
+<span class="k">while</span> <span class="n">kadi</span><span class="o">!=</span><span class="s2">"admin"</span> <span class="ow">or</span> <span class="n">ksifre</span><span class="o">!=</span><span class="s2">"123"</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">girisHakki</span><span class="si">}</span><span class="s2"> kadar deneme hakkınız var."</span><span class="p">)</span>
 
-<span class="c1">#</span>
-<span class="n">bugun</span> <span class="o">+</span> <span class="n">hafta</span><span class="o">*</span><span class="mi">3</span>  <span class="c1">#zaman farkı matemtiksel işlemlerde kullanılabilir.(bazı)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>datetime.date(2026, 10, 14)</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b2e86063">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#soru: Kullanıcıdan doğum tarihini isteyelim. Hangi formatta istediğimizi mesajda yazalım. O formatta gelen metni tarihe çevirelim.</span>
-<span class="c1"># kişinin hangi günde doğuğunu yazdıraılım. Gün adı yazılacak. Doğalı kaç gün olmuş onu da yazalım. </span>
-<span class="c1"># Örn: Siz doğalı 421.329 gün oldu. Çarşamba günü doğmuşsunuz.</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+    <span class="c1">#</span>
+    <span class="n">kadi</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Kullanıcı adını giriniz:"</span><span class="p">)</span>
+    <span class="n">ksifre</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Kullanıcı şifre giriniz:"</span><span class="p">)</span>
+    
+    <span class="c1">#</span>
+    <span class="n">girisHakki</span> <span class="o">-=</span><span class="mi">1</span> <span class="c1">#her denemede 1 azaltalım.</span>
 
-<span class="n">dtarih</span> <span class="o">=</span> <span class="s2">"25/01/1984"</span> <span class="c1">#input("Doğum tarihinizi giriniz: (GG/AA/YYYY) ")</span>
-<span class="n">dtarih</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dtarih</span><span class="p">,</span><span class="s2">"</span><span class="si">%d</span><span class="s2">/%m/%Y"</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="k">if</span> <span class="n">girisHakki</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Giriş hakkınız bitmiştir."</span><span class="p">)</span>
+        <span class="k">break</span>
+    
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Hoşgeldiniz </span><span class="si">{</span><span class="n">kadi</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="c1">#type(dtarih) #datetime.datetime</span>
 
-<span class="n">gunAdi</span> <span class="o">=</span> <span class="n">dtarih</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%A"</span><span class="p">)</span> <span class="c1"># Gün adı</span>
-<span class="n">bugun</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-
-<span class="c1">#</span>
-<span class="n">fark</span> <span class="o">=</span> <span class="n">bugun</span> <span class="o">-</span> <span class="n">dtarih</span>
-<span class="c1">#type(fark) #datetime.timedelta</span>
-
-<span class="c1">#mesajımız</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Siz doğalı </span><span class="si">{</span><span class="n">fark</span><span class="o">.</span><span class="n">days</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> gün oldu ve siz </span><span class="si">{</span><span class="n">gunAdi</span><span class="si">}</span><span class="s2"> doğdunuz"</span><span class="p">)</span>
+<span class="c1">#-----</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Programın sonuna gelindi. While dışındasınız."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7893,7 +7966,10 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Siz doğalı 15,587 gün oldu ve siz Wednesday doğdunuz
+<pre>3 kadar deneme hakkınız var.
+2 kadar deneme hakkınız var.
+Hoşgeldiniz admin
+Programın sonuna gelindi. While dışındasınız.
 </pre>
 </div>
 </div>
