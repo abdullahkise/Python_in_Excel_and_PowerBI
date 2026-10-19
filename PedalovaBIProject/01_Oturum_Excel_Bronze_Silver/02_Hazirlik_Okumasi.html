@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>02_Hazirlik_Okumasi.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="hazırlık-okuması--ham-csvden-karar-desteğe">Hazırlık Okuması – Ham CSV'den Karar Desteğe</h1>
+<blockquote>
+<p><strong>Kimler için:</strong> Projeyi izleyecek katılımcılar. <strong>Süre:</strong> ~15-20 dk. Önce <a href="01_Case_Study.md">01_Case_Study.md</a> okunmalı.
+<strong>Amaç:</strong> Oturumlarda geçecek kavramlara yabancı kalmamak ve &quot;neden bu araç, neden bu sıra?&quot; sorusunun cevabını baştan bilmek.</p>
+</blockquote>
+<hr>
+<h2 id="1-büyük-resim-bir-hikâye-altı-durak">1. Büyük Resim: Bir Hikâye, Altı Durak</h2>
+<p>Pedalova'nın sorusu aslında şudur: <em>&quot;Elimdeki dağınık dosyalardan, güvenebileceğim tek bir doğru rakam seti ve bunun üzerinde karar verebileceğim bir panel üretebilir miyim?&quot;</em></p>
+<p>Cevap bir <strong>veri yaşam döngüsüdür</strong> (Data Lineage). Üç oturum boyunca bu şemaya sürekli döneceğiz; öğrendiğin her şey bu şemada bir yere oturacak:</p>
+<pre><code class="language-mermaid"><div class="mermaid">
+flowchart LR
+    A[CSV Dosyaları<br/>aylık] --> B[Excel<br/>Power Query + Power Pivot<br/>Keşif]
+    A --> C[(Bronze<br/>SQL Server<br/>Python ELT)]
+    C --> D[(Silver<br/>Temiz + Standart)]
+    D --> E[(Gold<br/>Dim / Fact)]
+    E --> F[Excel Analitik<br/>Korelasyon · Regresyon · K-Means]
+    E --> G[Power BI<br/>Dashboard]
+    F --> G
+
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Durak</th>
+<th>Ne yapılır?</th>
+<th>Soru</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSV</td>
+<td>Kaynak sistemlerden gelen aylık ham dosyalar</td>
+<td>&quot;Elimde ne var?&quot;</td>
+</tr>
+<tr>
+<td>Excel keşif</td>
+<td>Hızlı bakış, ilk kusur sezgileri</td>
+<td>&quot;Veri nasıl görünüyor?&quot;</td>
+</tr>
+<tr>
+<td><strong>Bronze</strong></td>
+<td>Ham veriyi <em>olduğu gibi</em> + ETL meta verisiyle sakla; profiling</td>
+<td>&quot;Ne kadar kirli?&quot;</td>
+</tr>
+<tr>
+<td><strong>Silver</strong></td>
+<td>Temizle, standartlaştır, doğrula, DQ Skoru üret</td>
+<td>&quot;Güvenebilir miyim?&quot;</td>
+</tr>
+<tr>
+<td><strong>Gold</strong></td>
+<td>Analize hazır Dim/Fact (Star Schema)</td>
+<td>&quot;Nasıl kolay analiz ederim?&quot;</td>
+</tr>
+<tr>
+<td>Excel analitik + Power BI</td>
+<td>İstatistik, segmentasyon, panel</td>
+<td>&quot;Ne yapmalıyım?&quot;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-mimari-ve-oturum-yol-haritası">2. Mimari ve Oturum Yol Haritası</h2>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TB
+    subgraph O1[Oturum 1 - Excel, Bronze, Silver]
+        direction LR
+        E1[Excel keşif] --> B1[Bronze + Profiling] --> S1[Silver + DQ Skoru]
+    end
+    subgraph O2[Oturum 2 - BUS, Gold, Excel analitik]
+        direction LR
+        BUS[BUS Matrix] --> G2[Gold Dim/Fact] --> A2[Istatistik, Korelasyon, Regresyon, K-Means]
+    end
+    subgraph O3[Oturum 3 - Power BI]
+        direction LR
+        M3[Model + DAX] --> R3[6 sayfa rapor] --> N3[Bonus: NetworkX]
+    end
+    O1 --> O2 --> O3
+</div></code></pre>
+<h2 id="3-çözüm-yaklaşımı-vakanın-akışa-uygun-çözümü">3. Çözüm Yaklaşımı (Vakanın Akışa Uygun Çözümü)</h2>
+<ol>
+<li><strong>Keşfet (Excel, 3 ay).</strong> Power Query ile klasöre bağlan, dosyaları birleştir; satır sınırına (1.048.576) takılma riski için Power Pivot veri modeline al; PivotTable ile ilk sezgileri topla: boş değerler, şehir yazım varyantları, eksi adetler.</li>
+<li><strong>Ham veriyi yönet (Bronze).</strong> SQL Server'da Python'un gücünü kullanarak (<code>sp_execute_external_script</code> + pandas) klasördeki <strong>tüm</strong> CSV'leri tek çağrıda oku; hiç dönüştürmeden, tüm kolonlar metin (<code>NVARCHAR(MAX)</code>) olarak sakla. <code>LoadDateTime</code>, <code>SourceFileName</code>, <code>BatchID</code> ekle (kim, ne zaman, hangi dosyadan?). <strong>Profiling</strong> sorgularını ve <code>vw_DataProfiling</code> view'ını hazırla.</li>
+<li><strong>Güvenilir hale getir (Silver).</strong> View + fonksiyon + prosedürlerle temizle ve standartlaştır; düzeltilemeyeni <strong>karantina</strong> tablosuna ayır; kural tabanlı <strong>DQ Skoru</strong> ve <code>vw_DQ_Summary</code> üret.</li>
+<li><strong>Mantıksal tasarım (BUS Matrix).</strong> &quot;Hangi iş süreci hangi boyutlarla analiz edilecek?&quot; sorusunu Excel'de matrisle görselleştir; <strong>grain'i</strong> belirle; <code>FactSales</code> buradan çıkar.</li>
+<li><strong>Modelle (Gold).</strong> <code>DimDate</code>, <code>DimCustomer</code>, <code>DimProduct</code>, <code>DimStore</code>, <code>DimChannel</code>, <code>DimPayment</code>, <code>DimCampaign</code>, <code>FactSales</code>. Silver→Gold geçişi view + prosedür ile.</li>
+<li><strong>Analiz et (Excel).</strong> Descriptive statistics → korelasyon → regresyon (<em>etkiyi modelle, tahmin etme</em>) → K-Means (<em>&quot;herkese aynı kampanya doğru mu?&quot;</em> sorusuyla).</li>
+<li><strong>Sun (Power BI).</strong> DAX ölçüleri, Time Intelligence, pay oranı, 6 sayfalık rapor. <strong>Bonus:</strong> NetworkX ile ürün ilişki ağı.</li>
+</ol>
+<h2 id="4-neden-bu-araç-eşleşmesi">4. &quot;Neden Bu Araç?&quot; Eşleşmesi</h2>
+<table>
+<thead>
+<tr>
+<th>Araç</th>
+<th>Ne için?</th>
+<th>Neden o?</th>
+<th>Alternatif / Fabric karşılığı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excel + Power Query/Pivot</td>
+<td>Hızlı keşif, ilk sezgi</td>
+<td>Herkes biliyor; 3 ayda hızlı sonuç</td>
+<td>Dataflow Gen2 (Power Query'nin bulut hali)</td>
+</tr>
+<tr>
+<td>SQL Server (Bronze/Silver)</td>
+<td>Ham veriyi güvenle sakla, set bazlı temizle</td>
+<td>Büyük hacimde hızlı, tekrar çalıştırılabilir, yetkilendirilebilir</td>
+<td>Fabric Lakehouse/Warehouse</td>
+</tr>
+<tr>
+<td>Python (<code>sp_execute_external_script</code>)</td>
+<td>CSV klasörünü Bronze'a tek çağrıda yükle</td>
+<td><code>OPENROWSET</code> tek dosya okur, PolyBase yerel diske bağlanmaz; pandas ile klasör taraması ve metin olarak okuma kolay</td>
+<td>Pipeline Copy Activity / Notebook</td>
+</tr>
+<tr>
+<td>T-SQL view/fonksiyon/prosedür</td>
+<td>Dönüşüm mantığını veritabanında tut</td>
+<td>Tek yerde, versiyonlanabilir, tekrar kullanılabilir</td>
+<td>Pipeline + Notebook</td>
+</tr>
+<tr>
+<td>BUS Matrix (Excel)</td>
+<td>Boyutsal modelin tasarımı</td>
+<td>Teknik olmayanlarla da konuşulabilir; tasarım koddan önce gelir</td>
+<td>Modelleme araçları</td>
+</tr>
+<tr>
+<td>Gold (Star Schema)</td>
+<td>Analiz için optimize model</td>
+<td>Basit ilişki, hızlı DAX, tek doğru kaynak</td>
+<td>Fabric Semantic Model</td>
+</tr>
+<tr>
+<td>Excel Data Analysis / Python in Excel</td>
+<td>İstatistik, regresyon, K-Means</td>
+<td>Analist Excel'den çıkmadan sonuca ulaşır</td>
+<td>Fabric Notebook</td>
+</tr>
+<tr>
+<td>Power BI</td>
+<td>Karar destek paneli, DAX ölçüleri</td>
+<td>Etkileşimli, paylaşılabilir, otomatik yenilenir</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Özet:</strong> Her araç farklı bir <em>soruya</em> cevap veriyor. Aracı değil <strong>soruyu</strong> öğren.</p>
+</blockquote>
+<h2 id="5-mini-terimler-sözlüğü">5. Mini Terimler Sözlüğü</h2>
+<table>
+<thead>
+<tr>
+<th>Terim</th>
+<th>Kısa tanım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Medallion Mimarisi</strong></td>
+<td>Veriyi Bronze → Silver → Gold katmanlarında kademeli olarak iyileştiren mimari; her katman &quot;daha güvenilir ve daha analize hazır&quot;.</td>
+</tr>
+<tr>
+<td><strong>Bronze</strong></td>
+<td>Ham veri, kaynağa sadık kopya (+ yükleme meta verisi). Hiç temizlenmez.</td>
+</tr>
+<tr>
+<td><strong>Silver</strong></td>
+<td>Temizlenmiş, standartlaştırılmış, doğrulanmış veri. Hâlâ kaynak yapısına yakındır.</td>
+</tr>
+<tr>
+<td><strong>Gold</strong></td>
+<td>İş sorularına göre modellenmiş (Dim/Fact) analize hazır veri.</td>
+</tr>
+<tr>
+<td><strong>ETL / ELT</strong></td>
+<td>Extract-Transform-Load: dönüştür sonra yükle. ELT: önce yükle (SQL Server'a), dönüşümü orada yap. Bu projede <strong>ELT</strong> ağırlıklıdır.</td>
+</tr>
+<tr>
+<td><strong>Python ELT (<code>sp_execute_external_script</code>)</strong></td>
+<td>SQL Server içinden Python çalıştırıp dosyaları okuyan yöntem; pandas ile klasördeki tüm CSV'ler tek çağrıda, tip dönüşümü olmadan (<code>dtype=str</code>) Bronze'a taşınır. (<code>OPENROWSET</code> tek dosya okur, PolyBase yerel diske bağlanamaz; bu yüzden bu yolu seçtik.)</td>
+</tr>
+<tr>
+<td><strong>ETL Meta Verisi</strong></td>
+<td>Verinin kim/ne zaman/nereden geldiğini anlatan ek kolonlar (<code>LoadDateTime</code>, <code>SourceFileName</code>, <code>BatchID</code>).</td>
+</tr>
+<tr>
+<td><strong>Data Lineage</strong></td>
+<td>Verinin kaynaktan rapora izlediği yolun belgelenmesi.</td>
+</tr>
+<tr>
+<td><strong>Profiling</strong></td>
+<td>Veriyi <em>değiştirmeden</em> tanımak: kayıt/null/distinct sayısı, min/max, desenler.</td>
+</tr>
+<tr>
+<td><strong>DQ (Data Quality)</strong></td>
+<td>Veri kalitesi; doğruluk, tamlık, tutarlılık, geçerlilik, benzersizlik, bütünlük boyutlarıyla ölçülür.</td>
+</tr>
+<tr>
+<td><strong>DQ Skoru</strong></td>
+<td>Kurallara uyan satırların oranı (ör. %95). Veri güvenilirliğini tek sayıyla özetler.</td>
+</tr>
+<tr>
+<td><strong>Karantina (Quarantine)</strong></td>
+<td>Kuralı ihlal eden ve otomatik düzeltilemeyen satırların ayrı tabloda incelenmek üzere bekletilmesi.</td>
+</tr>
+<tr>
+<td><strong>Standardizasyon</strong></td>
+<td>Aynı şeyin tek bir yazımla temsil edilmesi (&quot;İSTANBUL&quot;, &quot;İst.&quot; → &quot;İstanbul&quot;).</td>
+</tr>
+<tr>
+<td><strong>Grain (tanecik)</strong></td>
+<td>Fact tablosunda <strong>bir satırın neyi temsil ettiği</strong>. Bu projede: <em>bir sipariş satırı</em>. Her tasarım grain ile başlar.</td>
+</tr>
+<tr>
+<td><strong>Dim (Boyut)</strong></td>
+<td>&quot;Kim, ne, nerede, ne zaman&quot; bağlamını taşıyan tablo (Müşteri, Ürün, Tarih…).</td>
+</tr>
+<tr>
+<td><strong>Fact (Olgu)</strong></td>
+<td>Ölçülebilir olayları tutan tablo (adet, tutar, indirim…).</td>
+</tr>
+<tr>
+<td><strong>Star Schema (Yıldız)</strong></td>
+<td>Ortada Fact, çevresinde Dim'ler; ilişkiler Dim → Fact (bire-çok).</td>
+</tr>
+<tr>
+<td><strong>BUS Matrix</strong></td>
+<td>Satırlar iş süreçleri, sütunlar ortak boyutlar olan tasarım matrisi; hangi sürecin hangi boyutu kullandığını gösterir.</td>
+</tr>
+<tr>
+<td><strong>Conformed Dimension</strong></td>
+<td>Birden çok Fact'in ortak kullandığı, aynı anlam ve anahtara sahip boyut.</td>
+</tr>
+<tr>
+<td><strong>Surrogate Key</strong></td>
+<td>Tablonun kendi ürettiği anlamsız tam sayı anahtarı (iş anahtarından bağımsız).</td>
+</tr>
+<tr>
+<td><strong>Business Key</strong></td>
+<td>Kaynak sistemdeki anahtar (<code>MusteriID = M00227</code>).</td>
+</tr>
+<tr>
+<td><strong>Bilinmeyen üye (-1)</strong></td>
+<td>Boyutta karşılığı bulunamayan satırların bağlandığı &quot;Bilinmiyor&quot; kaydı; Fact'te NULL anahtar bırakmamak için.</td>
+</tr>
+<tr>
+<td><strong>SCD (Slowly Changing Dimension)</strong></td>
+<td>Boyut özelliği zamanla değişirse ne yapılacağı: Tip 1 üzerine yaz, Tip 2 yeni satırla tarihçe tut.</td>
+</tr>
+<tr>
+<td><strong>Time Intelligence</strong></td>
+<td>Tarih tablosu üzerinden YTD/MTD/QTD, geçen yılın aynı dönemi (YoY) gibi zaman kıyaslamaları (DAX).</td>
+</tr>
+<tr>
+<td><strong>Korelasyon</strong></td>
+<td>İki sayısal değişkenin birlikte değişim gücü (-1…+1). <strong>Nedensellik değildir.</strong></td>
+</tr>
+<tr>
+<td><strong>Regresyon</strong></td>
+<td>Bir sonucu (Net Satış) birkaç faktörün (adet, indirim, yaş) doğrusal bir fonksiyonu olarak modelleme; &quot;faktör etkisi&quot; yorumu için. R², katsayı, p-değeri.</td>
+</tr>
+<tr>
+<td><strong>K-Means</strong></td>
+<td>Müşterileri benzerliğe göre k gruba ayıran gözetimsiz öğrenme yöntemi. Ölçeklenmiş değişken ister; k'yı sen seçersin.</td>
+</tr>
+<tr>
+<td><strong>RFM benzeri özellikler</strong></td>
+<td>Segmentasyon için davranış değişkenleri: ne kadar harcadı, kaç sipariş, ortalama sepet.</td>
+</tr>
+<tr>
+<td><strong>Network Graph (Ağ grafiği)</strong></td>
+<td>Düğüm (ürün) ve kenarlardan (birlikte satış) oluşan ilişki haritası. NetworkX Python kütüphanesi.</td>
+</tr>
+<tr>
+<td><strong>Idempotent</strong></td>
+<td>Kodu kaç kez çalıştırırsan çalıştır aynı sonucu veren (tekrar çalıştırılabilir).</td>
+</tr>
+<tr>
+<td><strong>Reconciliation (Mutabakat)</strong></td>
+<td>Kaynak ve hedef arasındaki satır/tutar toplamlarının eşleştiğinin kontrolü.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-mini-örnek--bus-matrix">6. Mini Örnek – BUS Matrix</h2>
+<p>Aşağıdaki, O2'de Excel'de renkli ve görsel olarak çizeceğimiz matrisin ön gösterimidir. <strong>Satır = iş süreci</strong>, <strong>sütun = boyut</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>İş Süreci</th>
+<th style="text-align:center">Tarih</th>
+<th style="text-align:center">Müşteri</th>
+<th style="text-align:center">Ürün</th>
+<th style="text-align:center">Mağaza</th>
+<th style="text-align:center">Kanal</th>
+<th style="text-align:center">Ödeme</th>
+<th style="text-align:center">Kampanya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Satış</strong> <em>(bu projede)</em></td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+</tr>
+<tr>
+<td>İade <em>(gelecek)</em></td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>Envanter <em>(gelecek)</em></td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center">✔</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>Satış satırından <strong>FactSales</strong> doğar. Gelecekte İade eklenirse Tarih/Müşteri/Ürün boyutları <em>yeniden yazılmaz</em>, aynen kullanılır – ortak boyut (conformed dimension) bunun için vardır.</p>
+<h2 id="7-mini-örnek--hedef-star-schema">7. Mini Örnek – Hedef Star Schema</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+    DimDate ||--o{ FactSales : DateKey
+    DimCustomer ||--o{ FactSales : CustomerKey
+    DimProduct ||--o{ FactSales : ProductKey
+    DimStore ||--o{ FactSales : StoreKey
+    DimChannel ||--o{ FactSales : ChannelKey
+    DimPayment ||--o{ FactSales : PaymentKey
+    DimCampaign ||--o{ FactSales : CampaignKey
+    FactSales {
+        int OrderID
+        int OrderLineID
+        int Quantity
+        decimal NetAmount
+        decimal GrossProfit
+    }
+</div></code></pre>
+<h2 id="8-üç-mini-mantık-notu-oturumlara-hazırlık">8. Üç Mini Mantık Notu (Oturumlara Hazırlık)</h2>
+<ul>
+<li><strong>Bronze neden &quot;kirli&quot; kalır?</strong> Kaynağa sadık kopya olmazsa &quot;bu hatayı kaynak mı yaptı, bizim kodumuz mu?&quot; sorusuna cevap veremezsin.</li>
+<li><strong>DQ Skoru neden önemli?</strong> Rapora güveni sayıya çevirir. &quot;Bu panel %95 temiz veriye dayanıyor&quot; demek, &quot;veriler doğru&quot; demekten daha dürüsttür.</li>
+<li><strong>Regresyon neden &quot;tahmin&quot; değil?</strong> Gelecek satışı değil, <em>&quot;adet, indirim ve yaş net satışı ne kadar açıklıyor?&quot;</em> sorusunu cevaplıyoruz. Bu fark, yöntem seçimini ve yorumu belirler.</li>
+</ul>
+<h2 id="9-oturumlara-kısa-bakış">9. Oturumlara Kısa Bakış</h2>
+<table>
+<thead>
+<tr>
+<th>Oturum</th>
+<th>Süre</th>
+<th>Çıktı</th>
+<th>Bağlantılı vaka soruları</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>O1</strong> – Excel Keşif → Bronze → Silver</td>
+<td>120 dk</td>
+<td>Keşif dosyası, <code>bronze</code>/<code>silver</code>, DQ Skoru</td>
+<td>1, 2</td>
+</tr>
+<tr>
+<td><strong>O2</strong> – BUS Matrix → Gold → Excel Analitik</td>
+<td>120 dk</td>
+<td>Star Schema, istatistik, korelasyon, regresyon, segmentler</td>
+<td>3, 4, 5, 6, 7, 10</td>
+</tr>
+<tr>
+<td><strong>O3</strong> – Power BI + Bonus Analytics</td>
+<td>120 dk</td>
+<td>6 sayfalık panel, DAX, NetworkX</td>
+<td>8, 9, 10, 11, 12</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-ön-hazırlık-kontrol-listesi-katılımcı">10. Ön Hazırlık Kontrol Listesi (Katılımcı)</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Microsoft 365 Excel (Python in Excel açık) ve Data Analysis ToolPak yüklü</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Power BI Desktop güncel; Python entegrasyonu (matplotlib, networkx, pandas) hazır</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">SQL Server 2025 + SSMS; Machine Learning Services (Python) etkin (izleyici olarak zorunlu değil)</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Bu belgeyi ve vaka çalışmasını okudum; terimler sözlüğüne göz attım</label></li>
+</ul>
+
+</body>
+</html>

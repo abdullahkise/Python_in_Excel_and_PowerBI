@@ -1,0 +1,24 @@
+// =====================================================================
+// 01_Excel_PowerPivot_Olculer.dax  -  Excel Power Pivot (Veri Modeli) ölçüleri, KEŞİF amaçlı
+// Tablo adı: Satis_Ham (m\01_Klasorden_Baglanti.m). Tüm kolonlar metin olduğundan sayısal toplam yerine
+// SATIR SAYILARI kullanılır. Ölçüyü eklemek: Power Pivot > Hesaplama Alanı (veya PivotTable > Ölçü Ekle).
+// =====================================================================
+
+// Toplam satır sayısı
+Satır Sayısı := COUNTROWS(Satis_Ham)
+
+// Sipariş sayısı (SiparisAdedi KOLONU değil! O, satırdaki ürün adedidir)
+Sipariş Sayısı := DISTINCTCOUNT(Satis_Ham[SiparisID])
+
+// Boş müşteri adı (boşluk karakterlerini de yakalamak için TRIM)
+Boş Müşteri Adı := COUNTROWS(FILTER(Satis_Ham, TRIM(Satis_Ham[MusteriAdi]) = ""))
+
+// Boş ürün kategorisi
+Boş Kategori := COUNTROWS(FILTER(Satis_Ham, TRIM(Satis_Ham[UrunKategori]) = ""))
+
+// Mükerrer satır: toplam satır - benzersiz (SiparisID, SiparisSatirID) çifti
+Mükerrer Satır := [Satır Sayısı] - COUNTROWS(SUMMARIZE(Satis_Ham, Satis_Ham[SiparisID], Satis_Ham[SiparisSatirID]))
+
+// Not: DAX'te metin sütununda "sayısal olmayan değer say" diye yerleşik bir fonksiyon yoktur; kirli sayısal değerler
+// (ör. "720,42") bu yüzden Excel'de PivotTable satır etiketlerinde (alfabetik sıralı) fark edilir ve SQL profilinde
+// (bronze.vw_DataProfiling.InvalidTypeCount) sayısallaştırılır.

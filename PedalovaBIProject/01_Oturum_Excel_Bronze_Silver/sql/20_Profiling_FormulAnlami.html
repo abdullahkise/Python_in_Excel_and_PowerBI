@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>20_Profiling_FormulAnlami.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="kolon-kolon-açıklama">Kolon Kolon Açıklama</h1>
+<p>Aşağıda her bir <code>CASE</code> ifadesinin ne yaptığını, hangi veri kalitesi problemini yakaladığını ve dikkat edilmesi gereken noktaları tek tek bulacaksın. Bu kolonlar tipik olarak bir <strong>Bronze katmanında veri kalite bayrakları (data quality flags)</strong> üretmek için kullanılır: <code>1</code> = problem var, <code>0</code> = sorun yok.</p>
+<hr>
+<h3 id="1-bosmusteriadi">1. <code>BosMusteriAdi</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> LTRIM(RTRIM(ISNULL(b.MusteriAdi, N<span class="hljs-string">&#x27;&#x27;</span>))) <span class="hljs-operator">=</span> N<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> <code>MusteriAdi</code> alanı <code>NULL</code> ise boş stringe çevirir, başındaki/sonundaki boşlukları kırpar ve boş kalıp kalmadığını kontrol eder.</li>
+<li><strong>Yakaladığı problem:</strong> Müşteri adının <strong>NULL, boş string veya sadece boşluklardan</strong> oluşması.</li>
+<li><strong>Not:</strong> <code>N''</code> kullanımı Unicode string olduğunu belirtir; <code>nvarchar</code> kolonlar için doğrudur.</li>
+</ul>
+<hr>
+<h3 id="2-boskategori">2. <code>BosKategori</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> LTRIM(RTRIM(ISNULL(b.UrunKategori, N<span class="hljs-string">&#x27;&#x27;</span>))) <span class="hljs-operator">=</span> N<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> 1. kolonun aynısı, ama <code>UrunKategori</code> için.</li>
+<li><strong>Yakaladığı problem:</strong> Ürün kategorisinin boş/NULL olması.</li>
+</ul>
+<hr>
+<h3 id="3-bostarih">3. <code>BosTarih</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> LTRIM(RTRIM(ISNULL(b.SiparisTarihi, N<span class="hljs-string">&#x27;&#x27;</span>))) <span class="hljs-operator">=</span> N<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> <code>SiparisTarihi</code> alanının boş/NULL olup olmadığını kontrol eder.</li>
+<li><strong>Yakaladığı problem:</strong> Tarih alanının eksik olması.</li>
+<li><strong>Not:</strong> <code>SiparisTarihi</code> burada bir <strong>string</strong> kolon olarak ele alınıyor (sonradan <code>LIKE '[0-9][0-9][0-9][0-9]-...'</code> ile format kontrolü yapıldığına göre kolon <code>nvarchar</code>/<code>varchar</code> tipinde). Eğer gerçekten <code>date</code> tipinde olsaydı <code>LTRIM(RTRIM(...))</code> hata verirdi.</li>
+</ul>
+<hr>
+<h3 id="4-adetsifirveyanegatif">4. <code>AdetSifirVeyaNegatif</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> TRY_CAST(LTRIM(RTRIM(b.SiparisAdedi)) <span class="hljs-keyword">AS</span> <span class="hljs-type">INT</span>) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span>
+       <span class="hljs-keyword">OR</span> TRY_CAST(LTRIM(RTRIM(b.SiparisAdedi)) <span class="hljs-keyword">AS</span> <span class="hljs-type">INT</span>) <span class="hljs-operator">&lt;=</span> <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> <code>SiparisAdedi</code> metnini <code>INT</code>'e çevirmeyi dener.
+<ul>
+<li>Çevrilemiyorsa (<code>NULL</code> dönerse) → 1</li>
+<li>Çevriliyor ama <code>&lt;= 0</code> ise → 1</li>
+</ul>
+</li>
+<li><strong>Yakaladığı problem:</strong> Sipariş adedinin <strong>sayısal olmaması, sıfır veya negatif</strong> olması.</li>
+<li><strong>Not:</strong> <code>TRY_CAST</code> kullanıldığı için hatalı veri sorguyu patlatmaz, sadece <code>NULL</code> döner. İki kez <code>TRY_CAST</code> çağrılması ufak bir performans maliyetidir; <code>CROSS APPLY</code> veya CTE ile tek seferde hesaplanabilir.</li>
+</ul>
+<hr>
+<h3 id="5-yasaralikdisi">5. <code>YasAralikDisi</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> TRY_CAST(LTRIM(RTRIM(b.MusteriYas)) <span class="hljs-keyword">AS</span> <span class="hljs-type">INT</span>) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span>
+       <span class="hljs-keyword">OR</span> TRY_CAST(LTRIM(RTRIM(b.MusteriYas)) <span class="hljs-keyword">AS</span> <span class="hljs-type">INT</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">18</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">100</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> <code>MusteriYas</code>'ı <code>INT</code>'e çevirir.
+<ul>
+<li>Çevrilemiyorsa → 1</li>
+<li>Çevriliyor ama <strong>18–100 aralığı dışındaysa</strong> → 1</li>
+</ul>
+</li>
+<li><strong>Yakaladığı problem:</strong> Yaşın sayısal olmaması veya mantıksız aralıkta olması (0, 17, 101, 999 vb.).</li>
+<li><strong>Not:</strong> 18–100 sınırları iş kuralına göre değişebilir (örneğin 0–120 daha geniş olurdu).</li>
+</ul>
+<hr>
+<h3 id="6-virgulluondalik">6. <code>VirgulluOndalik</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> b.BirimFiyat <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">&#x27;%,%&#x27;</span>
+       <span class="hljs-keyword">OR</span> b.UrunMaliyeti <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">&#x27;%,%&#x27;</span>
+       <span class="hljs-keyword">OR</span> b.IndirimOrani <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">&#x27;%,%&#x27;</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> Üç parasal/oransal alanda <strong>virgül karakteri</strong> olup olmadığına bakar.</li>
+<li><strong>Yakaladığı problem:</strong> Türkçe yerelleşimde ondalık ayırıcı virgüldür (<code>12,50</code>). Bu değerler SQL Server'da <code>DECIMAL</code>'a doğrudan çevrilemez veya yanlış yorumlanır. Bu bayrak, bu tür satırların ayrıca düzeltilmesi gerektiğini işaretler.</li>
+<li><strong>Not:</strong> Yalnızca <code>LIKE '%,%'</code> kontrolü yapar; aslında geçerli binlik ayırıcı virgül de olabilir (<code>1,234.56</code>), yani <strong>false positive</strong> üretebilir.</li>
+</ul>
+<hr>
+<h3 id="7-isoolmayantarih">7. <code>ISOOlmayanTarih</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> LTRIM(RTRIM(ISNULL(b.SiparisTarihi, N<span class="hljs-string">&#x27;&#x27;</span>))) <span class="hljs-operator">&lt;&gt;</span> N<span class="hljs-string">&#x27;&#x27;</span>
+      <span class="hljs-keyword">AND</span> LTRIM(RTRIM(b.SiparisTarihi)) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">&#x27;[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]&#x27;</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> Alan boş <strong>değilse</strong> ve <code>YYYY-MM-DD</code> desenine uymuyorsa → 1.</li>
+<li><strong>Yakaladığı problem:</strong> Tarihin ISO 8601 formatında olmaması (ör. <code>01.02.2024</code>, <code>2024/02/01</code>, <code>20240201</code>).</li>
+<li><strong>Not:</strong> Bu sadece <strong>desen</strong> kontrolüdür. <code>2024-13-45</code> gibi geçersiz bir tarih de bu desenden geçer. Gerçek geçerlilik için <code>TRY_CONVERT(date, ..., 23)</code> gerekir. Boş tarih zaten <code>BosTarih</code> kolonunda yakalandığı için burada ayrıca hariç tutuluyor.</li>
+</ul>
+<hr>
+<h3 id="8-indirimyuzdeolarak">8. <code>IndirimYuzdeOlarak</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> TRY_CAST(LTRIM(RTRIM(b.IndirimOrani)) <span class="hljs-keyword">AS</span> <span class="hljs-type">DECIMAL</span>(<span class="hljs-number">18</span>,<span class="hljs-number">2</span>)) <span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> İndirim oranını <code>DECIMAL(18,2)</code>'ye çevirir; sonuç <strong>1'den büyükse</strong> → 1.</li>
+<li><strong>Yakaladığı problem:</strong> İndirimin <strong>0–1 aralığında oran</strong> olarak mı (0.15 = %15), yoksa <strong>0–100 aralığında yüzde</strong> olarak mı (15 = %15) tutulduğu tutarsızlığı. 1'den büyük değerler yüzde formatında yazılmış demektir.</li>
+<li><strong>Not:</strong> <code>TRY_CAST</code> başarısız olursa (<code>NULL</code>) koşul <code>NULL</code> döner ve <code>CASE</code> <code>ELSE 0</code>'a düşer — yani <strong>çevrilemeyen değerler burada bayraklanmaz</strong>. Bu değerlerin <code>VirgulluOndalik</code> kolonunda yakalanması beklenir (eğer virgül içeriyorlarsa).</li>
+</ul>
+<hr>
+<h3 id="9-tarihdosyaayidisi">9. <code>TarihDosyaAyiDisi</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> LTRIM(RTRIM(b.SiparisTarihi)) <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">&#x27;[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]&#x27;</span>
+      <span class="hljs-keyword">AND</span> <span class="hljs-keyword">LEFT</span>(LTRIM(RTRIM(b.SiparisTarihi)), <span class="hljs-number">7</span>) <span class="hljs-operator">&lt;&gt;</span> LTRIM(RTRIM(b.KaynakAy)) <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> Tarih geçerli ISO desenindeyse, tarihin <strong>ilk 7 karakteri</strong> (<code>YYYY-MM</code>) ile <code>KaynakAy</code> alanını karşılaştırır; farklıysa → 1.</li>
+<li><strong>Yakaladığı problem:</strong> Bir dosyadan gelen kayıtların, dosyanın ait olduğu ay ile tutarsız tarih içermesi (ör. <code>2024-03</code> dosyasında <code>2024-05-12</code> tarihli satır). Bu genelde ETL/veri kaynağı karışmasını gösterir.</li>
+<li><strong>Not:</strong> <code>KaynakAy</code>'ın da <code>YYYY-MM</code> formatında olduğu varsayılıyor.</li>
+</ul>
+<hr>
+<h3 id="10-musteriidbicimibozuk">10. <code>MusteriIDBicimiBozuk</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> b.MusteriID <span class="hljs-keyword">COLLATE</span> Latin1_General_100_BIN2 <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">&#x27;M[0-9][0-9][0-9][0-9][0-9]&#x27;</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> <code>MusteriID</code>'nin <strong>tam olarak</strong> <code>M</code> + 5 rakam (<code>M12345</code>) desenine uyup uymadığını kontrol eder.</li>
+<li><strong>Yakaladığı problem:</strong> Müşteri ID formatının bozulması (küçük <code>m</code>, eksik/fazla rakam, harf karışması vb.).</li>
+<li><strong><code>COLLATE Latin1_General_100_BIN2</code> neden burada?</strong> Bu kritik bir detay:
+<ul>
+<li>Varsayılan collation büyük/küçük harfe duyarsız olabilir (ör. <code>Latin1_General_CI_AS</code>). O durumda <code>LIKE 'M%'</code> deseni <strong><code>m12345</code></strong>'i de kabul ederdi.</li>
+<li><code>_BIN2</code> ile karşılaştırma <strong>kod noktası bazlı, büyük/küçük harfe duyarlı</strong> hale gelir. Yani <code>m12345</code> artık <strong>reddedilir</strong>, sadece gerçek <code>M12345</code> geçer.</li>
+<li>Ayrıca <code>_BIN2</code>, <code>İ</code>/<code>I</code>/<code>i</code> gibi Türkçe/Unicode eşdeğerlik sorunlarını da devre dışı bırakır — format kontrolü deterministik olur.</li>
+</ul>
+</li>
+<li><strong>Not:</strong> <code>NOT LIKE</code> deseni tüm stringi kapsar (<code>LIKE</code> zaten tam eşleşme arar, <code>%</code> yok). Yani <code>M12345X</code> reddedilir.</li>
+</ul>
+<hr>
+<h3 id="11-urunidkatalogdisi">11. <code>UrunIDKatalogDisi</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> TRY_CAST(<span class="hljs-built_in">SUBSTRING</span>(LTRIM(RTRIM(b.UrunID)), <span class="hljs-number">2</span>, <span class="hljs-number">10</span>) <span class="hljs-keyword">AS</span> <span class="hljs-type">INT</span>) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span>
+       <span class="hljs-keyword">OR</span> TRY_CAST(<span class="hljs-built_in">SUBSTRING</span>(LTRIM(RTRIM(b.UrunID)), <span class="hljs-number">2</span>, <span class="hljs-number">10</span>) <span class="hljs-keyword">AS</span> <span class="hljs-type">INT</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">28</span> <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> <code>UrunID</code>'nin <strong>2. karakterinden itibaren 10 karakterini</strong> alıp <code>INT</code>'e çevirir; çevrilemiyorsa veya sonuç <strong>1–28 aralığında değilse</strong> → 1.</li>
+<li><strong>Yakaladığı problem:</strong> Ürün ID'sinin katalogda tanımlı 1–28 aralığı dışında olması veya sayısal kısmının bozuk olması.</li>
+<li><strong>Not:</strong> <code>SUBSTRING(..., 2, 10)</code> <strong>ilk karakteri atlar</strong> (muhtemelen <code>P</code> gibi bir prefix). Ama:
+<ul>
+<li><code>UrunID</code> 11 karakterden kısaysa <code>SUBSTRING</code> daha kısa döner, <code>TRY_CAST</code> yine de çalışabilir.</li>
+<li><strong>Prefix karakteri doğrulanmıyor</strong> — <code>X05</code> de <code>P05</code> de geçer. Sadece sayısal kısma bakılıyor.</li>
+<li><code>10</code> uzunluğu <code>INT</code> için fazla; <code>2147483647</code>'yi aşan değerler <code>TRY_CAST</code>'te <code>NULL</code> döner, yani otomatik bayraklanır — ama bu durum katalog aralığıyla ilgili değil, taşma kaynaklı.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="12-sehirstandartdisi">12. <code>SehirStandartDisi</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> b.MusteriSehir <span class="hljs-keyword">COLLATE</span> Latin1_General_100_BIN2 <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">IN</span>
+          (N<span class="hljs-string">&#x27;İstanbul&#x27;</span>, N<span class="hljs-string">&#x27;Ankara&#x27;</span>, N<span class="hljs-string">&#x27;İzmir&#x27;</span>, N<span class="hljs-string">&#x27;Bursa&#x27;</span>, N<span class="hljs-string">&#x27;Antalya&#x27;</span>,
+           N<span class="hljs-string">&#x27;Adana&#x27;</span>, N<span class="hljs-string">&#x27;Konya&#x27;</span>, N<span class="hljs-string">&#x27;Gaziantep&#x27;</span>, N<span class="hljs-string">&#x27;Samsun&#x27;</span>, N<span class="hljs-string">&#x27;Trabzon&#x27;</span>)
+     <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> Şehir adının izin verilen 10 şehir listesinde olup olmadığını kontrol eder.</li>
+<li><strong>Yakaladığı problem:</strong> Şehir alanının standart listeye uymaması (yazım hatası, farklı şehir, boş değer vb.).</li>
+<li><strong><code>COLLATE Latin1_General_100_BIN2</code> neden burada?</strong> En kritik nokta:
+<ul>
+<li><code>İstanbul</code> içindeki <strong><code>İ</code> (U+0130, büyük noktalı I)</strong> Türkçe'ye özgüdür. Varsayılan <code>Latin1_General_CI_AS</code> collation'da <code>İ</code> ile <code>I</code> <strong>eşit kabul edilebilir</strong>, yani <code>istanbul</code>, <code>Istanbul</code>, <code>İstanbul</code> hepsi geçebilir.</li>
+<li><code>_BIN2</code> ile bu eşdeğerlik kaldırılır: yalnızca <strong>tam olarak <code>İstanbul</code></strong> (büyük <code>İ</code> ile) kabul edilir. <code>istanbul</code>, <code>ISTANBUL</code>, <code>Istanbul</code> reddedilir.</li>
+<li>Bu, veri standardizasyonu açısından çok sıkı bir kontroldür. Eğer amaç sadece &quot;farklı şehir&quot; yakalamaksa <code>_CI_AS</code> daha uygun olurdu; amaç <strong>tam format standardı</strong> ise <code>_BIN2</code> doğru tercih.</li>
+</ul>
+</li>
+<li><strong>Dikkat:</strong> <code>NULL</code> şehir → <code>NOT IN</code> <strong><code>UNKNOWN</code></strong> döner → <code>CASE</code> <code>ELSE 0</code>'a düşer, yani <strong>NULL şehir bayraklanmaz</strong>. Boş şehir yakalamak istiyorsan <code>OR b.MusteriSehir IS NULL</code> eklenmeli.</li>
+</ul>
+<hr>
+<h3 id="13-tekrarsatir">13. <code>TekrarSatir</code></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-built_in">ROW_NUMBER</span>() <span class="hljs-keyword">OVER</span> (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> b.SiparisID, b.SiparisSatirID
+                             <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> b.BronzeRowID) <span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span>
+     <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+</div></code></pre>
+<ul>
+<li><strong>Ne yapar:</strong> Her <code>(SiparisID, SiparisSatirID)</code> kombinasyonu için satırları <code>BronzeRowID</code>'ye göre sıralar ve <strong>ilk satır dışındakileri</strong> işaretler.</li>
+<li><strong>Yakaladığı problem:</strong> Aynı sipariş satırının <strong>(SiparişID + SiparişSatırID) birden fazla kez</strong> gelmesi (duplicate). En küçük <code>BronzeRowID</code> &quot;gerçek&quot; kabul edilir; diğerleri tekrar olarak bayraklanır.</li>
+<li><strong>Not:</strong>
+<ul>
+<li><code>BronzeRowID</code> muhtemelen Bronze tablosunun otomatik artan birincil anahtarı; yükleme sırasını temsil eder.</li>
+<li>Bu kolon <strong>satır bazında hesaplandığı için</strong> aynı sorguda <code>WHERE TekrarSatir = 0</code> ile filtrelemek <strong>çalışmaz</strong> (window fonksiyonu <code>WHERE</code>'den sonra değerlendirilir). Filtrelemek için CTE/subquery gerekir.</li>
+<li><code>PARTITION BY</code> içinde <code>SiparisID</code> + <code>SiparisSatirID</code> birleşimi, satır düzeyinde unique key varsayımına dayanır.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="genel-değerlendirme">Genel Değerlendirme</h2>
+<table>
+<thead>
+<tr>
+<th>Konu</th>
+<th>Gözlem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Amaç</strong></td>
+<td>Bronze katmanında satır bazlı veri kalite bayrakları üretmek (0/1).</td>
+</tr>
+<tr>
+<td><strong>Tekrar eden <code>TRY_CAST</code></strong></td>
+<td>4, 5 ve 11. kolonlarda aynı <code>TRY_CAST</code> iki kez çağrılıyor; <code>CROSS APPLY</code>/CTE ile tek seferde hesaplanabilir.</td>
+</tr>
+<tr>
+<td><strong><code>_BIN2</code> kullanımı</strong></td>
+<td>10 ve 12. kolonlarda bilinçli tercih: büyük/küçük harf ve Türkçe <code>İ/I</code> eşdeğerliğini devre dışı bırakıp sıkı format kontrolü sağlıyor.</td>
+</tr>
+<tr>
+<td><strong>Zayıf noktalar</strong></td>
+<td>• 7. kolon sadece desen kontrolü (geçersiz tarih <code>2024-13-45</code> geçer).<br>• 8. kolonda <code>TRY_CAST</code> <code>NULL</code> dönerse <code>ELSE 0</code>'a düşüyor, yani bozuk sayı bayraklanmıyor.<br>• 12. kolonda <code>NULL</code> şehir bayraklanmıyor.<br>• 11. kolonda prefix karakteri doğrulanmıyor.<br>• 6. kolon binlik ayırıcı virgülü de yakalar (false positive).</td>
+</tr>
+<tr>
+<td><strong>Kullanım</strong></td>
+<td>Bu bayraklar genelde <code>WHERE</code> yerine önce CTE'de üretilip sonra <code>WHERE TekrarSatir = 0 AND ...</code> şeklinde filtrelenir veya kalite raporu için sayım amacıyla kullanılır.</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
