@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>03_Beklenen_Cikti_Kontrol_Listesi.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="oturum-3--beklenen-çıktı-kontrol-listesi">Oturum 3 – Beklenen Çıktı Kontrol Listesi</h1>
+<blockquote>
+<p>Sayılar <strong>24 aylık veri</strong> (2023-01 … 2024-12; seed 42) için <code>python\o3_hesapla.py C:\PedalovaBIProject\SalesRawData</code> çıktısından alındı. Veri değişirse aracı yeniden çalıştır. ⚠️ Power BI'da çalıştırılmadı: ilk provada karşılaştır.
+Kartlar <strong>filtresiz</strong> ve <code>Veri Aralığında = TRUE</code> filtresiyle okunur.</p>
+</blockquote>
+<h2 id="b-model">B. Model</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Kontrol</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td><code>FactSales</code> satır sayısı</td>
+<td><strong>161.809</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>DimDate</code> satır sayısı</td>
+<td><strong>1.826</strong> (2022-01-01 … 2026-12-31)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>DimCustomer</code> · <code>DimProduct</code> · <code>DimStore</code> · <code>DimChannel</code> · <code>DimPayment</code> · <code>DimCampaign</code></td>
+<td><strong>2.997 · 29 · 16 · 4 · 4 · 8</strong> (her birinde -1 &quot;Bilinmiyor&quot; dahil)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>Musteri_Segmentleri</code> satır / <code>ΣTotalSpend</code></td>
+<td><strong>2.996 / 493.432.732,75</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>DQ_Ozet</code> / <code>DQ_Kural</code> / <code>DQ_Boyut</code></td>
+<td><strong>1 / 19 / 5</strong> satır</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>İlişkiler</td>
+<td>7 × (1:çok, tek yön) + 1 × (1:1, çift yön); <code>DQ_*</code> ilişkisiz</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Tarih tablosu işaretli; ay adları Ocak→Aralık, gün adları Pzt→Paz</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<h2 id="c-dax-ölçüleri-filtresiz-kart">C. DAX Ölçüleri (filtresiz kart)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Ölçü</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Net Satış</td>
+<td><strong>493.432.732,75</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Brüt Satış · İndirim Tutarı</td>
+<td><strong>532.228.915,00 · 38.796.182,25</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Maliyet · Brüt Kâr · Kâr Marjı %</td>
+<td><strong>347.586.557,85 · 145.846.174,90 · %29,56</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Satış Adedi · Sipariş Sayısı · Müşteri Sayısı</td>
+<td><strong>214.526 · 64.364 · 2.996</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>AOV · UPT · Ortalama İndirim %</td>
+<td><strong>7.666,28 · 3,333 · %7,29</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Bisiklet Net · Kampanyalı Net</td>
+<td><strong>281.849.553,50 · 397.033.822,00</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Yüksek İndirimli Satır · Bisikletli Sipariş</td>
+<td><strong>66.887 · 8.563</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Pay % (Toplam): Bisiklet · Bileşen · Aksesuar</td>
+<td><strong>57,12 · 24,40 · 18,48</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Pay % (Kategori İçi): Elektrikli/Bisiklet · Vites/Bileşen · Kask/Aksesuar</td>
+<td><strong>55,44 · 33,53 · 49,15</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Pay % (Görünür), dilimleyici = Bileşen + Aksesuar</td>
+<td><strong>56,91 / 43,09</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Segment Payı %: Düzenli Orta · Sık Küçük · Düşük Hacimli · Nadir Büyük</td>
+<td><strong>31,38 · 27,80 · 27,47 · 13,36</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kampanya Payı %: Yok · Yaz · Ramazan · Yılbaşı · Kurban · Kasım · Okula Dönüş</td>
+<td><strong>19,54 · 18,94 · 17,62 · 13,00 · 12,43 · 10,01 · 8,46</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="c-4-time-intelligence">C-4. Time Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Kontrol</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Son Satış Tarihi (filtresiz)</td>
+<td><strong>2024-12-31</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Net YTD · QTD · MTD (filtresiz kartlar)</td>
+<td><strong>280.196.167,00 · 65.169.971,00 · 22.565.971,00</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Net YTD LY · YTD YoY %</td>
+<td><strong>213.236.565,75 · +%31,40</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Büyüme (Son Ay MoM %)</td>
+<td><strong>−%18,10</strong> (Aralık 22.565.971,00 / Kasım 27.553.283,25)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Net Satış Son 3 Ay (2024 Aralık)</td>
+<td><strong>65.169.971,00</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>YTD (ay): 2023 Mar · Haz · Ara</td>
+<td><strong>34.677.601,25 · 103.415.516,50 · 213.236.565,75</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>YTD (ay): 2024 Oca (<strong>sıfırlanır</strong>) · Haz · Ara</td>
+<td><strong>12.329.492,50 · 137.376.943,50 · 280.196.167,00</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>QTD (ay): 2023 Mar · Nis (<strong>sıfırlanır</strong>) · Haz</td>
+<td><strong>34.677.601,25 · 20.532.994,75 · 68.737.915,25</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>MTD gün: 2023-03-15 · 2024-03-15 · 2024-06-15</td>
+<td><strong>7.997.928,75 · 9.894.255,25 · 17.264.891,25</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>YoY % (2024): Oca · Şub · Mar · Nis · May · Haz</td>
+<td><strong>18,92 · 25,24 · 32,05 · 46,37 · 29,02 · 33,93</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>YoY % (2024): Tem · Ağu · Eyl · Eki · Kas · Ara</td>
+<td><strong>34,73 · 34,04 · 36,02 · 30,28 · 26,16 · 19,59</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>YoY % (2023 tüm aylar)</td>
+<td><strong>BOŞ</strong> (2022 verisi yok)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>MoM % (2023 Şub · Mar · 2024 Oca · Mar · Kas · Ara)</td>
+<td><strong>−16,65 · +81,32 · −34,66 · +91,17 · +83,07 · −18,10</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Yıl dilimleyicisi 2024 / 2023 → Net</td>
+<td><strong>280.196.167,00 / 213.236.565,75</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="c-5-kampanya-net--ay-sayısı--ay-başına--indirim---marj-">C-5. Kampanya (Net · ay sayısı · ay başına · indirim % · marj %)</h2>
+<table>
+<thead>
+<tr>
+<th>Kampanya</th>
+<th>Net</th>
+<th>Ay</th>
+<th>Ay başına Net</th>
+<th>İndirim %</th>
+<th>Marj %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kampanya Yok</td>
+<td>96.398.910,75</td>
+<td>6</td>
+<td>16.066.485,13</td>
+<td>2,71</td>
+<td>32,84</td>
+</tr>
+<tr>
+<td>Yaz</td>
+<td>93.470.955,75</td>
+<td>4</td>
+<td>23.367.738,94</td>
+<td>8,35</td>
+<td>28,63</td>
+</tr>
+<tr>
+<td>Ramazan</td>
+<td>86.945.133,75</td>
+<td>4</td>
+<td>21.736.283,44</td>
+<td>8,38</td>
+<td>28,66</td>
+</tr>
+<tr>
+<td>Yılbaşı</td>
+<td>64.132.708,00</td>
+<td>4</td>
+<td>16.033.177,00</td>
+<td>8,42</td>
+<td>29,48</td>
+</tr>
+<tr>
+<td><strong>Kurban Bayramı</strong></td>
+<td>61.355.126,25</td>
+<td>2</td>
+<td><strong>30.677.563,13</strong></td>
+<td>8,21</td>
+<td>27,89</td>
+</tr>
+<tr>
+<td>Kasım</td>
+<td>49.392.396,75</td>
+<td>2</td>
+<td>24.696.198,38</td>
+<td>8,20</td>
+<td>29,42</td>
+</tr>
+<tr>
+<td>Okula Dönüş</td>
+<td>41.737.501,50</td>
+<td>2</td>
+<td>20.868.750,75</td>
+<td>8,43</td>
+<td>28,62</td>
+</tr>
+</tbody>
+</table>
+<p>Kampanya takvimi: Yılbaşı (Oca, Ara) · Kampanya Yok (Şub, May, Eki) · Ramazan (Mar, Nis) · Kurban (Haz) · Yaz (Tem, Ağu) · Okula Dönüş (Eyl) · Kasım (Kas) → her iki yılda.</p>
+<h2 id="c-7-korelasyon-satır-düzeyi-n--161472-müşteri-düzeyi-n--2996">C-7. Korelasyon (satır düzeyi n = 161.472; müşteri düzeyi n = 2.996)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Çift</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Adet – İndirim</td>
+<td><strong>0,2987</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Net – Kâr</td>
+<td><strong>0,9530</strong> (türev; anlamsız)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Adet – Net · Adet – Kâr</td>
+<td><strong>0,0154 · 0,0504</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>İndirim – Yaş · İndirim – Net · İndirim – Kâr</td>
+<td><strong>−0,0092 · 0,0148 · −0,0563</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Yaş – Adet · Yaş – Net · Yaş – Kâr</td>
+<td><strong>−0,0008 · 0,0374 · 0,0292</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Müşteri: İndirim–UPT · İndirim–AOV · UPT–AOV</td>
+<td><strong>0,2071 · −0,0457 · 0,5044</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="d-sayfalar">D. Sayfalar</h2>
+<p><strong>Sayfa 1 – Özet:</strong> kanal payı Mağaza <strong>%46,32</strong> · Web <strong>%31,96</strong> · Mobil <strong>%21,72</strong> (Net: 228.572.656,50 · 157.708.853,00 · 107.151.223,25). Yıl=2024 → Sipariş <strong>34.140</strong>, Müşteri <strong>2.981</strong>.</p>
+<p><strong>Sayfa 2 – Zaman:</strong> hafta günü Net (Pzt→Paz): <strong>63.280.033,50 · 62.463.012,25 · 63.255.161,50 · 66.347.528,50 · 62.041.106,75 · 87.319.826,25 · 88.726.064,00</strong>.</p>
+<p><strong>Sayfa 3 – Ürün:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Alt kategori</th>
+<th>Net</th>
+<th>Pay % (Toplam)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Elektrikli Bisiklet</td>
+<td>156.254.133,00</td>
+<td>31,67</td>
+</tr>
+<tr>
+<td>Kask</td>
+<td>44.816.487,50</td>
+<td>9,08</td>
+</tr>
+<tr>
+<td>Yol Bisikleti</td>
+<td>44.726.910,50</td>
+<td>9,06</td>
+</tr>
+<tr>
+<td>Dağ Bisikleti</td>
+<td>42.346.403,00</td>
+<td>8,58</td>
+</tr>
+<tr>
+<td>Vites</td>
+<td>40.376.013,00</td>
+<td>8,18</td>
+</tr>
+</tbody>
+</table>
+<p>İlk 5 ürün (Net · Adet): Voltrik Elektrikli Şehir Bisikleti <strong>89.996.467,00 · 1.733</strong> · Voltrik Elektrikli Dağ Bisikleti <strong>66.257.666,00 · 992</strong> · Rotalux Yol Bisikleti Karbon <strong>44.726.910,50 · 1.593</strong> · Zirvex Dağ Bisikleti 29 <strong>42.346.403,00 · 2.132</strong> · Jantaş Alüminyum Jant Seti <strong>26.590.244,50 · 4.819</strong>. Marka: Voltrik <strong>31,67</strong> · Kafatek <strong>9,08</strong> · Rotalux <strong>9,06</strong> · Zirvex <strong>8,58</strong> · Torkpro <strong>8,18</strong> · Urbanta <strong>7,81</strong>. Ödeme: Kredi Kartı <strong>%67,71</strong> · Havale/EFT <strong>%18,04</strong> · Nakit <strong>%14,25</strong>.</p>
+<p><strong>Sayfa 4 – Müşteri:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Müşteri</th>
+<th>Sipariş</th>
+<th>Net</th>
+<th>AOV</th>
+<th>Marj %</th>
+<th>Ort. indirim %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Düzenli Orta</td>
+<td>628</td>
+<td>12.943</td>
+<td>154.828.060,75</td>
+<td>11.962,30</td>
+<td>27,03</td>
+<td>7,40</td>
+</tr>
+<tr>
+<td>Sık Küçük Alıcı</td>
+<td>668</td>
+<td>30.578</td>
+<td>137.163.502,50</td>
+<td>4.485,69</td>
+<td>33,82</td>
+<td>6,64</td>
+</tr>
+<tr>
+<td>Düşük Hacimli</td>
+<td>1.349</td>
+<td>18.548</td>
+<td>135.532.113,50</td>
+<td>7.307,10</td>
+<td>30,44</td>
+<td>8,12</td>
+</tr>
+<tr>
+<td>Nadir Büyük Sepet</td>
+<td>351</td>
+<td>2.295</td>
+<td>65.909.056,00</td>
+<td>28.718,54</td>
+<td>24,80</td>
+<td>6,66</td>
+</tr>
+</tbody>
+</table>
+<p>Şehir (Net · müşteri): İstanbul <strong>150.829.504,00 · 908</strong> · Ankara <strong>67.009.107,75 · 410</strong> · İzmir <strong>55.143.905,25 · 344</strong> · Bursa <strong>46.721.743,00 · 285</strong> · Antalya <strong>40.806.918,75 · 245</strong>. Yaş grubu (müşteri · Net): 18-24 <strong>270 · 38.390.092,75</strong> · 25-34 <strong>732 · 105.932.246,25</strong> · 35-44 <strong>1.104 · 183.136.629,50</strong> · 45-54 <strong>662 · 123.722.750,25</strong> · 55+ <strong>228 · 42.251.014,00</strong>. Bölge Net: Marmara <strong>197.551.247,00</strong> · İç Anadolu <strong>93.512.085,50</strong> · Akdeniz <strong>67.223.566,50</strong> · Ege <strong>55.143.905,25</strong> · Karadeniz <strong>54.104.177,25</strong> · Güneydoğu <strong>25.897.751,25</strong>. Cinsiyet: Erkek <strong>1.512 · 245.915.951,50</strong> · Kadın <strong>1.484 · 247.516.781,25</strong>.</p>
+<p><strong>Sayfa 5 – Veri Kalitesi:</strong> DQ Skoru <strong>94,98</strong> (<strong>Kritik</strong>; hedef 98) · Bronze <strong>164.694</strong> · ihlalli <strong>8.264</strong> · Tekrar <strong>1.594</strong> · Karantina <strong>1.291</strong> · Silver <strong>161.809</strong> (Kabul <strong>%98,25</strong>). Boyut: Tamlık <strong>783</strong> (99,525) · Geçerlilik <strong>2.226</strong> (98,648) · Tutarlılık <strong>3.254</strong> (98,024) · Benzersizlik <strong>1.594</strong> (99,032) · Bütünlük <strong>480</strong> (99,709). Kural (ilk 6): DQ17 <strong>1.594</strong> · DQ12 <strong>1.072</strong> · DQ11 <strong>671</strong> · DQ14 <strong>606</strong> · DQ10 <strong>449</strong> · DQ04 <strong>416</strong>.</p>
+<p><strong>Sayfa 6 – İleri Analitik:</strong> Regresyon: Kesişim <strong>−3.277,41</strong> · OrderQty <strong>2.501,05</strong> (t 86,11) · AvgDiscountRate <strong>−7.634,40</strong> (t −7,10) · CustomerAge <strong>80,39</strong> (t 15,76) · R² <strong>0,1078</strong> · n <strong>64.346</strong> · F <strong>2.591,64</strong>.</p>
+<h2 id="e-networkx-görsel-filtresi-yıl--2024">E. NetworkX (görsel filtresi Yıl = 2024)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Kontrol</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Görsele giden satır (dataset)</td>
+<td><strong>85.750</strong> (&lt; 150.000; uyarı çıkmamalı)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Sipariş · ürün · ilişki · bileşen · topluluk</td>
+<td><strong>34.140 · 28 · 68 · 2 · 4</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>En yüksek lift</td>
+<td>Pedalis Pedal – Gidonya Gidon <strong>8,44</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Yıl filtresi olmadan</td>
+<td>161.809 satır &gt; 150.000 → <strong>uyarı</strong> (ilk 150.000 satır kullanılır)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>(Referans, 24 ay)</td>
+<td>28 düğüm · <strong>70</strong> kenar · 3 bileşen · 5 topluluk</td>
+</tr>
+</tbody>
+</table>
+<h2 id="f-yayın">F. Yayın</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Rapor Service'te açılıyor · [ ] Gateway/zamanlanmış yenileme ayarı gösterildi · [ ] App/Paylaş gösterildi</label></li>
+</ul>
+<h2 id="hızlı-çapraz-kontrol-sql-ile">Hızlı Çapraz Kontrol (SQL ile)</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">AS</span> FaktSatir, <span class="hljs-built_in">SUM</span>(NetAmount) <span class="hljs-keyword">AS</span> Net, <span class="hljs-built_in">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> OrderID) <span class="hljs-keyword">AS</span> Siparis <span class="hljs-keyword">FROM</span> gold.FactSales;
+<span class="hljs-comment">-- Beklenen: 161809 | 493432732,75 | 64364</span>
+</div></code></pre>
+
+</body>
+</html>

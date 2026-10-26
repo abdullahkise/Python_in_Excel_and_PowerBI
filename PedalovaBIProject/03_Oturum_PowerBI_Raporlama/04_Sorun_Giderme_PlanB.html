@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>04_Sorun_Giderme_PlanB.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="oturum-3--sorun-giderme-ve-plan-b">Oturum 3 – Sorun Giderme ve Plan B</h1>
+<blockquote>
+<p>Önce <strong>satır sayısını ve filtre bağlamını</strong> kontrol et (FactSales <strong>161.809</strong>, <code>Veri Aralığında = TRUE</code>). Çoğu &quot;yanlış sayı&quot; buradan çıkar.</p>
+</blockquote>
+<h2 id="1-bağlantı-ve-yükleme">1. Bağlantı ve Yükleme</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>&quot;Sertifika zinciri güvenilmeyen bir yetkili tarafından verilmiş&quot;</em> / SSL hatası</td>
+<td>SQL Server 2025 varsayılan olarak <strong>şifreli bağlantı</strong> ister; yerel sunucu sertifikası güvenilmez</td>
+<td>SSMS'te de aynı hata çıkar. Çözüm: Power BI <strong>Dosya &gt; Seçenekler &gt; Veri kaynağı ayarları &gt; İzinleri düzenle &gt; &quot;Bağlantıyı şifrele&quot; işaretini kaldır</strong> (yerel makine, yalnızca demo) ya da sunucuya güvenilir sertifika yükle.</td>
+</tr>
+<tr>
+<td>Veritabanı/sunucu bulunamıyor</td>
+<td><code>localhost</code> yerine örnek adı gerekli</td>
+<td><code>SUNUCU\ÖRNEK</code> yaz; <code>SqlSunucu</code> parametresini güncelle.</td>
+</tr>
+<tr>
+<td><em>&quot;Kimlik doğrulama&quot;</em> istemi</td>
+<td>İlk bağlanma</td>
+<td><strong>Windows</strong> kimlik bilgisi, &quot;Geçerli kullanıcı&quot;.</td>
+</tr>
+<tr>
+<td>Yükleme çok yavaş</td>
+<td>Fazla kolon / önizleme</td>
+<td>Lineage kolonlarını kaldır; <code>Verileri Dönüştür</code>'de Kapat ve Uygula. <strong>Plan B:</strong> gold view/tablolar yerine yedek <code>Pedalova_Yedek.pbix</code>.</td>
+</tr>
+<tr>
+<td><code>Musteri_Segmentleri</code> sayıları bozuk (<code>493.432.732</code> yerine <code>49343273275</code>)</td>
+<td>Türkçe/İngilizce ondalık karışıklığı (<code>;</code> ve <code>,</code>)</td>
+<td><a href="m/02_Musteri_Segmentleri.m">m\02_Musteri_Segmentleri.m</a> ayracı algılar; elle yüklüyorsan <strong>Yerel ayar ile tür değiştir</strong>: <code>tr-TR</code> (Excel çıktısı) / <code>en-US</code> (PlanB).</td>
+</tr>
+<tr>
+<td>Segment tablosu <strong>100 satır</strong> (2.996 değil)</td>
+<td>Eski 3 aylık dosya</td>
+<td>Yeni dosyayı üret: <code>python kmeans_yerel_test.py &lt;SalesRawData&gt; --csv-yaz Musteri_Segmentleri_PlanB.csv</code> ya da Excel'de O2'yi 24 aylık veriyle tekrarla.</td>
+</tr>
+<tr>
+<td><code>DQ_Ozet</code> boş / bulunamıyor</td>
+<td>O1 SQL'i çalıştırılmamış</td>
+<td><code>01_Oturum_Excel_Bronze_Silver\sql\99_Hepsini_Calistir.sql</code>; olmazsa DQ sayfasını <strong>atla (⏩)</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-model-ve-dax">2. Model ve DAX</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Net Satış YTD</code> filtresiz kartta <strong>boş</strong></td>
+<td><code>DimDate</code> 2026'ya uzanıyor; &quot;bugün&quot; 2026</td>
+<td><code>Veri Aralığında = TRUE</code> filtresini sayfa/rapor düzeyine koy.</td>
+</tr>
+<tr>
+<td>YoY / LY <strong>boş</strong></td>
+<td>Tarih tablosu işaretli değil <strong>veya</strong> 2023 aylarına bakıyorsun</td>
+<td>Tablo araçları &gt; Tarih tablosu olarak işaretle; <strong>2023 için BOŞ normaldir</strong> (2022 yok), 2024'e bak.</td>
+</tr>
+<tr>
+<td>YTD yıl değişince sıfırlanmıyor</td>
+<td>Tarih tablosu <strong>kesintisiz değil</strong> / <code>DimDate[Year]</code> yerine başka sütun</td>
+<td><code>DimDate</code> tek tablo, 1.826 gün; eksende <code>DimDate[FullDate]</code>/<code>MonthName</code> kullan, <strong>fakt tablosundaki tarih</strong> değil.</td>
+</tr>
+<tr>
+<td>MTD/QTD kartı beklenenden farklı</td>
+<td>Kart bağlamı filtresiz = son ay/çeyrek</td>
+<td><strong>Ay eksenli</strong> görselde göster (kılavuz C-4 tuzakları).</td>
+</tr>
+<tr>
+<td>Ay adları alfabetik sıralı</td>
+<td>&quot;Sütuna göre sırala&quot; yok</td>
+<td><code>MonthName</code> ← <code>MonthNo</code>, <code>DayName</code> ← <code>DayOfWeekNo</code>.</td>
+</tr>
+<tr>
+<td><code>Müşteri Sayısı</code> = 2.997</td>
+<td>-1 &quot;Bilinmiyor&quot; üyesi sayılıyor</td>
+<td>Ölçü <code>CustomerKey &lt;&gt; -1</code> filtresini içermeli (<a href="dax/01_Olculer.dax">dax</a>).</td>
+</tr>
+<tr>
+<td>Toplam adet ≠ sipariş sayısı</td>
+<td><code>SiparisAdedi</code> satır adedidir</td>
+<td><code>Sipariş Sayısı = DISTINCTCOUNT(OrderID)</code>.</td>
+</tr>
+<tr>
+<td>Pay % toplamı %100 olmuyor</td>
+<td><code>ALL</code> yerine yanlış tablo/sütun</td>
+<td><code>ALL(DimProduct)</code> <strong>tüm tabloyu</strong>; yalnızca bir kolon için <code>ALL(DimProduct[Category])</code>.</td>
+</tr>
+<tr>
+<td>Segment dilimleyicisi fakt görsellerini filtrelemiyor</td>
+<td>Çift yön yok</td>
+<td><code>Musteri_Segmentleri</code> ↔ <code>DimCustomer</code> ilişkisini <strong>çift yön</strong> yap.</td>
+</tr>
+<tr>
+<td>&quot;Dairesel bağımlılık&quot; / belirsiz ilişki</td>
+<td>Çift yönlü ilişki zinciri</td>
+<td>Yalnızca 1:1 segment ilişkisi çift yön; diğerleri tek yön.</td>
+</tr>
+<tr>
+<td>Korelasyon matrisinde hepsi aynı değer / boş</td>
+<td><code>Değişken X/Y</code> tabloları ilişkili ya da <code>Sıra</code> ile sıralı değil</td>
+<td>İki tablo <strong>ilişkisiz</strong> olmalı; matriste satır/sütun doğru tablodan.</td>
+</tr>
+<tr>
+<td>Korelasyon ısı haritası tek renk</td>
+<td>Renk uçları otomatik</td>
+<td><strong>Min −1, Merkez 0, Maks +1</strong> sabitle.</td>
+</tr>
+<tr>
+<td>Hızlı ölçü menüsünde &quot;Korelasyon&quot; yok</td>
+<td>Sürüm/dil farkı</td>
+<td><code>Korelasyon (Müşteri: İndirim - UPT)</code> ölçüsünü <a href="dax/01_Olculer.dax">dax</a>'tan yapıştır.</td>
+</tr>
+<tr>
+<td>Kampanya karşılaştırması &quot;Ramazan kazandı&quot; gösteriyor</td>
+<td>Toplamla kıyas</td>
+<td><strong><code>Ay Başına Net Satış</code></strong> kullan (Ramazan 4 ay, Kurban 2 ay).</td>
+</tr>
+<tr>
+<td>Görsel çok yavaş</td>
+<td>Fazla kart/matris, yüksek kardinalite</td>
+<td>Performans Çözümleyici (Görünüm); kategoriye <em>İlk N</em> filtre; sayfa başına ≤ 10 görsel.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-rapor">3. Rapor</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dilimleyici sayfa değişince sıfırlanıyor</td>
+<td>Eşitlenmemiş</td>
+<td>Görünüm &gt; Dilimleyicileri eşitle (tüm sayfalar ✔ görünür+eşitle).</td>
+</tr>
+<tr>
+<td>Drill-through görünmüyor</td>
+<td>Alan &quot;Ayrıntıya git&quot; kutusunda yok</td>
+<td>Hedef sayfada alanı <strong>Drill-through</strong> kutusuna sürükle; kaynak görselde <strong>ProductName</strong> olmalı.</td>
+</tr>
+<tr>
+<td>Tema yüklenmedi</td>
+<td>JSON hatası</td>
+<td>Görünüm &gt; Temalar &gt; <strong>Tema Gözat</strong>; olmazsa varsayılan tema + renkleri elle ayarla.</td>
+</tr>
+<tr>
+<td>Matris çok geniş</td>
+<td>Fazla ölçü</td>
+<td>Satır/sütun toplamlarını kapat; ölçüleri sütun yerine <strong>satıra</strong> al.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-python-görseli-networkx">4. Python Görseli (NetworkX)</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>&quot;Python görseli için betik yürütme etkin değil&quot;</em></td>
+<td>Python yolu tanımsız</td>
+<td><strong>Dosya &gt; Seçenekler &gt; Python betiği</strong>: yerel Python/Conda klasörünü göster; <strong>Python'u yeniden başlat</strong>.</td>
+</tr>
+<tr>
+<td><code>ModuleNotFoundError: networkx</code></td>
+<td>Paket yok</td>
+<td><code>pip install pandas matplotlib networkx</code> (Power BI'ın gösterdiği Python ile aynı ortama).</td>
+</tr>
+<tr>
+<td><em>&quot;Görsel 150.000 satırla sınırlı&quot;</em> uyarısı</td>
+<td>24 ay = 161.809 satır</td>
+<td>Görsel filtresi: <strong>Yıl = 2024</strong> (85.750 satır).</td>
+</tr>
+<tr>
+<td><code>KeyError: 'OrderID'</code></td>
+<td>Alan adı/sırası</td>
+<td>Değerler: <code>ProductName</code>, <code>Category</code>, <code>OrderID</code>, <code>OrderLineID</code> (4 alan, &quot;Toplamı&quot; değil). Betik adlarla çalışır.</td>
+</tr>
+<tr>
+<td>Görsel boş / &quot;eşiği geçen çift yok&quot;</td>
+<td>Çok kısıtlı filtre</td>
+<td>Dilimleyiciyi genişlet veya <code>MIN_BIRLIKTE</code>/<code>MIN_LIFT</code> değerini düşür (50 / 1,5).</td>
+</tr>
+<tr>
+<td>Çalışmıyor / süre aşımı (5 dk)</td>
+<td>Python ortamı</td>
+<td><strong>Plan B:</strong> <a href="NetworkX_Ornek.png">NetworkX_Ornek.png</a> → Ekle &gt; Resim; kodu <strong>yerelde</strong> (<code>python\networkx_yerel_test.py &lt;SalesRawData&gt; --yil 2024</code>) çalıştırıp PNG göster.</td>
+</tr>
+<tr>
+<td>Service'te görsel hata veriyor</td>
+<td>Desteklenmeyen paket</td>
+<td><code>networkx</code> Service'te desteklenmeyebilir: <strong>yayımlamadan önce</strong> kontrol et; gerekirse ağı önceden hesaplayıp <strong>resim/tablo</strong> olarak ekle.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-yayımlama">5. Yayımlama</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>&quot;Gateway gerekli&quot;</em></td>
+<td>Yerel SQL için <strong>şirket içi veri ağ geçidi</strong> kur; veri kaynağını eşle. Demoda yalnızca göster.</td>
+</tr>
+<tr>
+<td>Yenileme başarısız</td>
+<td>Kimlik bilgilerini Service'te yeniden gir; parametreleri kontrol et.</td>
+</tr>
+<tr>
+<td>Yayımla düğmesi pasif</td>
+<td>Power BI hesabıyla giriş yap (kurumsal hesap).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-genel-plan-b-sırası-canlı-demo-çökerse">6. Genel Plan B Sırası (canlı demo çökerse)</h2>
+<ol>
+<li><strong>Hazır <code>.pbix</code></strong> (<code>Pedalova_Yedek.pbix</code>) aç; yalnızca sayfaları gez ve yorumla.</li>
+<li>Ölçüler hata veriyorsa <a href="dax/01_Olculer.dax">dax\01_Olculer.dax</a> yorumlarındaki <strong>Beklenen</strong> değerlerle sonucu göster.</li>
+<li>Veri yüklenmezse <strong>ekran görüntüsü</strong> yerine <code>python\o3_hesapla.py</code> çıktısını göster.</li>
+<li>Süre kısıtlıysa §4 (<strong>Atlanabilir</strong>: <a href="01_Egitmen_Notlari.md">01_Egitmen_Notlari.md</a>) sırasını uygula; <strong>C-5 (Ramazan vs Kurban)</strong> ve <strong>Sayfa 4 (S7)</strong>'yi koru.</li>
+</ol>
+
+</body>
+</html>

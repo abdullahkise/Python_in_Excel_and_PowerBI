@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>03_Beklenen_Cikti_Kontrol_Listesi.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="oturum-2--beklenen-çıktı-kontrol-listesi">Oturum 2 – Beklenen Çıktı Kontrol Listesi</h1>
+<blockquote>
+<p><strong>Bu sayılar <code>HazirlikNotlari\SalesRawData</code> (3 dosya, Silver'da 17.957 satır) verisinden <code>python\o2_hesapla.py</code> ile hesaplandı.</strong> Veri değişirse aracı yeniden çalıştır:
+<code>python python\o2_hesapla.py C:\PedalovaBIProject\SalesRawData</code>
+✔ kutusunu, ekrandaki sonuç beklenenle <strong>birebir</strong> aynıysa işaretle. Fark varsa <a href="04_Sorun_Giderme_PlanB.md">04_Sorun_Giderme_PlanB.md</a>.
+⚠️ SQL ve Excel sonuçları hazırlayan ortamda canlı doğrulanmadı; ilk provada karşılaştır, fark çıkarsa raporla.
+Ondalık yuvarlama: Excel'de görünen biçime göre son hane farklı olabilir (ör. 5.695,18 / 5.695,175).</p>
+</blockquote>
+<h2 id="a-ön-koşul-o1-çıktısı">A. Ön koşul (O1 çıktısı)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Kontrol</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td><code>silver.Sales</code> satır</td>
+<td><strong>17.957</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>dq.vw_DQ_Summary</code></td>
+<td>DQScore <strong>99.51</strong>, SilverRows <strong>17957</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="b-bus-matrix-excel">B. BUS Matrix (Excel)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Adım</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Satış satırı</td>
+<td><strong>7 X</strong> (7 boyut)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Alt satır: boyutu kullanan süreç sayısı</td>
+<td>Tarih <strong>4</strong> · Müşteri <strong>2</strong> · Ürün <strong>4</strong> · Mağaza <strong>3</strong> · Kanal <strong>3</strong> · Ödeme <strong>2</strong> · Kampanya <strong>2</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Grain cümlesi</td>
+<td>&quot;Bir siparişin bir ürün satırı (OrderID × OrderLineID)&quot;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="c-gold">C. Gold</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Adım</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td><code>10_Gold_Tablolar.sql</code></td>
+<td>&quot;Gold tabloları hazır&quot;; <code>DimCustomer_Bilinmiyor_Dahil</code> = <strong>1</strong> (yalnızca -1 üyesi)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>11_Gold_DimDate.sql</code></td>
+<td><strong>1826</strong> satır · 2022-01-01 .. 2026-12-31 · <code>BoslukKontrol</code> = <strong>1</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>20230101</code></td>
+<td>Yıl 2023 · Ç1 · Ocak · <code>2023-01</code> · 202301 · <strong>WeekOfYear 52</strong> · DayOfWeekNo <strong>7</strong> · Pazar · IsWeekend <strong>1</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>20240229</code></td>
+<td>var (artık yıl) · DayOfWeekNo <strong>4</strong> (Perşembe)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>12_Gold_Src_Views.sql</code> sonu</td>
+<td>Müşteri <strong>100</strong> · Ürün <strong>28</strong> · Mağaza <strong>15</strong> · Kampanya <strong>7</strong> · Kanal <strong>3</strong> · Ödeme <strong>3</strong> · Fakt <strong>17957</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>usp_Load_Gold</code> (LoadLog)</td>
+<td>DimCustomer <strong>100</strong> · DimProduct <strong>28</strong> · DimStore <strong>15</strong> · DimChannel <strong>3</strong> · DimPayment <strong>3</strong> · DimCampaign <strong>7</strong> · FactSales <strong>17957</strong> · UnknownRows <strong>0</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Boyut satırları (Bilinmiyor dahil)</td>
+<td>DimDate <strong>1826</strong> · DimCustomer <strong>101</strong> · DimProduct <strong>29</strong> · DimStore <strong>16</strong> · DimChannel <strong>4</strong> · DimPayment <strong>4</strong> · DimCampaign <strong>8</strong> · FactSales <strong>17957</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Uzlaştırma</td>
+<td>SatirFarki <strong>0</strong> · NetFarki <strong>0.00</strong> · AdetFarki <strong>0</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Ay bazlı satır</td>
+<td>2023-01 <strong>5114</strong> · 2023-02 <strong>5112</strong> · 2023-03 <strong>7731</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Yetim anahtar (7 sütun)</td>
+<td>Hepsi <strong>0</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>&quot;Bilinmiyor&quot; (-1) kullanımı (6 sütun)</td>
+<td>Hepsi <strong>0</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Grain tekrarı / NetHatali / KarHatali</td>
+<td><strong>0</strong> / <strong>0</strong> / <strong>0</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>KPI</td>
+<td>Brüt <strong>44.518.650,00</strong> · İndirim <strong>3.120.421,00</strong> · Net <strong>41.398.229,00</strong> · Maliyet <strong>28.551.379,75</strong> · Brüt Kâr <strong>12.846.849,25</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>KPI (devam)</td>
+<td>Marj <strong>31,03</strong> · Adet <strong>23.794</strong> · Sipariş <strong>7.269</strong> · AOV <strong>5.695,18</strong> · UPT <strong>3,273</strong> · OrtIndirim <strong>7,01</strong> · Müşteri <strong>100</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kampanya kırılımı</td>
+<td>Ramazan: 7.731 satır / 3.096 sipariş / Net <strong>20.205.882,25</strong> / indirim <strong>8,21</strong> / marj <strong>29,39</strong> · Kampanya Yok: 5.112 / 2.062 / <strong>10.680.890,25</strong> / <strong>2,97</strong> / <strong>34,22</strong> · Yılbaşı: 5.114 / 2.111 / <strong>10.511.456,50</strong> / <strong>8,57</strong> / <strong>30,95</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kategori kırılımı</td>
+<td>Bisiklet <strong>20.386.135,00</strong> (marj 23,53) · Bileşen <strong>12.502.911,50</strong> (35,22) · Aksesuar <strong>8.509.182,50</strong> (42,84)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Yaş grubu (DimCustomer)</td>
+<td>18-24 <strong>13</strong> · 25-34 <strong>31</strong> · 35-44 <strong>26</strong> · 45-54 <strong>22</strong> · 55+ <strong>8</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>FK denemesi (⏩)</td>
+<td><code>HataNo</code> <strong>547</strong> (FOREIGN KEY çakışması)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>15_Gold_Analitik_Views.sql</code></td>
+<td>SatirDuzeyi <strong>17954</strong> · SiparisDuzeyi <strong>7269</strong> · MusteriDuzeyi <strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="d-excel-gold-bağlantısı--betimsel-i̇statistik">D. Excel: Gold bağlantısı + Betimsel İstatistik</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Adım</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td><code>Satis_Satir</code> / <code>Siparis_Duzeyi</code> / <code>Musteri_RFM</code> tabloları</td>
+<td><strong>17.954</strong> / <strong>7.269</strong> / <strong>100</strong> satır</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>Satis_Satir</code> ilk 6 sütun sırası</td>
+<td>Quantity · DiscountRate · CustomerAgeAtOrder · NetAmount · GrossProfit · UnitPrice</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Betimsel – Quantity</td>
+<td>Ort. <strong>1,3249</strong> · Medyan <strong>1</strong> · Std <strong>0,7260</strong> · Çarpıklık <strong>2,984</strong> · Basıklık <strong>11,018</strong> · Min 1 · Max 6 · Sayı 17.954</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>– DiscountRate</td>
+<td><strong>0,0617</strong> · 0,05 · <strong>0,0657</strong> · 0,664 · −0,810 · 0 · 0,2</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>– CustomerAgeAtOrder</td>
+<td><strong>37,92</strong> · 37 · <strong>11,03</strong> · 0,111 · −0,679 · 18 · 62</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>– NetAmount</td>
+<td><strong>2.305,70</strong> · <strong>660</strong> · <strong>6.563,48</strong> · <strong>7,205</strong> · 68,759 · 120 · <strong>127.000</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>– GrossProfit</td>
+<td><strong>715,50</strong> · 288 · <strong>1.540,25</strong> · 6,723 · 65,864 · 52,5 · 31.750</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>– UnitPrice</td>
+<td><strong>2.108,50</strong> · 650 · <strong>6.486,42</strong> · 6,637 · 49,276 · 150 · 63.500</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Grafik 1: kategoriye göre Net</td>
+<td>Bisiklet ≈ 20,4 M · Bileşen ≈ 12,5 M · Aksesuar ≈ 8,5 M</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Grafik 2: kampanyaya göre ort. DiscountRate</td>
+<td>Yılbaşı ≈ <strong>0,077</strong> · Ramazan ≈ <strong>0,076</strong> · Kampanya Yok ≈ <strong>0,025</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="e-korelasyon">E. Korelasyon</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Çift</th>
+<th style="text-align:right">Beklenen r</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Quantity – DiscountRate</td>
+<td style="text-align:right"><strong>0,2992</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Quantity – CustomerAgeAtOrder</td>
+<td style="text-align:right">0,0048</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Quantity – NetAmount</td>
+<td style="text-align:right">0,0402</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Quantity – GrossProfit</td>
+<td style="text-align:right">0,0793</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>DiscountRate – CustomerAgeAtOrder</td>
+<td style="text-align:right">−0,0190</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>DiscountRate – NetAmount</td>
+<td style="text-align:right">0,0178</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>DiscountRate – GrossProfit</td>
+<td style="text-align:right">−0,0478</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>CustomerAgeAtOrder – NetAmount</td>
+<td style="text-align:right">0,0256</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>CustomerAgeAtOrder – GrossProfit</td>
+<td style="text-align:right">0,0184</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><strong>NetAmount – GrossProfit</strong></td>
+<td style="text-align:right"><strong>0,9566</strong> (türev)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Bisiklet dışı: DiscountRate – Quantity</td>
+<td style="text-align:right"><strong>0,3096</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>İndirim düzeyine göre ort. adet (bisiklet dışı)</td>
+<td style="text-align:right">0 → <strong>1,139</strong> · 0,05 → <strong>1,283</strong> · 0,10 → <strong>1,431</strong> · 0,15 → <strong>1,615</strong> · 0,20 → <strong>1,923</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Sipariş düzeyi: OrderQty – NetAmount</td>
+<td style="text-align:right">r <strong>0,3004</strong> · trendline R² <strong>0,0903</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="f-regresyon-toolpak-n--7269">F. Regresyon (ToolPak; n = 7.269)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Çıktı</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Çoklu R / R Kare / Düzeltilmiş R Kare</td>
+<td><strong>0,3032</strong> / <strong>0,0919</strong> / <strong>0,0916</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Standart hata / Gözlem</td>
+<td><strong>10.015,84</strong> / <strong>7.269</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>ANOVA df (reg / artık / toplam)</td>
+<td>3 / 7.265 / 7.268</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>ANOVA SS (reg / artık)</td>
+<td>≈ <strong>7,379E+10</strong> / ≈ <strong>7,288E+11</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>F / Anlamlılık F</td>
+<td><strong>245,20</strong> / <strong>1,45E-151</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kesişim</td>
+<td><strong>−1.254,53</strong> (SE 484,56; t −2,59; p 0,0096)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>OrderQty</td>
+<td><strong>1.770,31</strong> (SE 66,62; t <strong>26,57</strong>; p ≈ 0; %95: 1.639,72 – 1.900,91)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>AvgDiscountRate</td>
+<td><strong>−3.317,23</strong> (SE 2.408,13; t −1,38; p <strong>0,1684</strong>; %95: −8.037,86 – 1.403,40)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>CustomerAge</td>
+<td><strong>35,85</strong> (SE 10,65; t <strong>3,37</strong>; p <strong>0,0008</strong>; %95: 14,98 – 56,73)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="g-k-means-python-in-excel">G. K-Means (Python in Excel)</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Adım</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>HÜCRE 1 özet</td>
+<td>n = 100 · TotalSpend ort. <strong>413.982,29</strong> (min 144.709 / max 735.711) · OrderCount ort. <strong>72,69</strong> (8–162) · AvgBasket ort. <strong>8.231,32</strong> (2.340,61–29.241,81)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>HÜCRE 2 silhouette</td>
+<td>k=2 <strong>0,4202</strong> · 3 <strong>0,4540</strong> · <strong>4 0,4724</strong> · 5 0,4492 · 6 0,4132 · 7 0,4112 · 8 0,4199</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>HÜCRE 2 inertia</td>
+<td>160,20 · 95,25 · <strong>60,70</strong> · 50,87 · 41,70 · 35,52 · 28,12</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Seçilen k</td>
+<td><strong>4</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>HÜCRE 4 profil (isim → müşteri)</td>
+<td>Sık Küçük Alıcı <strong>28</strong> · Düzenli Orta <strong>27</strong> · Nadir Büyük Sepet <strong>14</strong> · Düşük Hacimli <strong>31</strong> (toplam 100)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Profil ortalamaları</td>
+<td>Sık Küçük: harcama <strong>508.278</strong>, sipariş <strong>141,3</strong>, sepet <strong>3.601</strong> · Düzenli Orta: <strong>479.318</strong> / <strong>62,6</strong> / <strong>7.818</strong> · Nadir Büyük: <strong>379.666</strong> / <strong>18,8</strong> / <strong>21.118</strong> · Düşük Hacimli: <strong>287.404</strong> / <strong>43,8</strong> / <strong>6.954</strong></td>
+</tr>
+<tr>
+<td>☐</td>
+<td>HÜCRE 5 çıktı tablosu</td>
+<td><strong>100</strong> satır; kolonlar: CustomerID, Segment, TotalSpend, OrderCount, AvgBasket</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>Musteri_Segmentleri.csv</code></td>
+<td>UTF-8; 100 veri satırı + başlık; Türkçe karakterler bozuk değil</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>(Eğitmen) gizli gruplarla uyum</td>
+<td>ARI <strong>0,598</strong>; &quot;Kampanya Avcısı&quot; (16 müşteri) çoğunlukla &quot;Düşük Hacimli&quot;de (13)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Küme <strong>numaraları</strong> sürümler arası değişebilir; <strong>segment boyutları (28/27/14/31) ve profil ortalamaları</strong> aynı kalmalıdır. Excel'in sklearn sürümü farklıysa küçük sapmalar için <code>kmeans_yerel_test.py</code> çıktısıyla karşılaştır.</p>
+</blockquote>
+<h2 id="h-kapanış">H. Kapanış</h2>
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th>Madde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>☐</td>
+<td>Vaka <strong>S3, S4, S5, S6, S7</strong> cevaplandı; <strong>S10 kısmi</strong> (Kurban verisi yok) not edildi</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><code>Musteri_Segmentleri.csv</code> kaydedildi (O3'ün girdisi)</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kazanım tablosu gösterildi; O3 köprü cümlesi söylendi</td>
+</tr>
+<tr>
+<td>☐</td>
+<td><strong>24 aylık veri</strong> uyarısı (O3 ön koşulu) hatırlatıldı</td>
+</tr>
+<tr>
+<td>☐</td>
+<td>Kayıt: <code>gold.LoadLog</code> içinde yükleme izi var</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sayılar-nasıl-doğrulandı">Sayılar nasıl doğrulandı?</h2>
+<table>
+<thead>
+<tr>
+<th>Sayı grubu</th>
+<th>Kaynak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gold satır/tutar/KPI, kampanya-kategori kırılımı</td>
+<td><code>o2_hesapla.py</code> (Silver'ın pandas karşılığından Gold'u kurar; tutarlar kuruşa kadar tam çünkü fiyat × adet × oran ≤ 2 ondalık)</td>
+</tr>
+<tr>
+<td>Betimsel, korelasyon, regresyon</td>
+<td><code>o2_hesapla.py</code> (numpy; p-değeri scipy <code>t</code> dağılımı; ToolPak ile aynı OLS formülleri)</td>
+</tr>
+<tr>
+<td>K-Means</td>
+<td><code>o2_hesapla.py</code> ve <code>kmeans_yerel_test.py</code> (Excel hücre bloklarını <code>xl()</code> taklidiyle çalıştırır; <code>random_state=42</code>)</td>
+</tr>
+<tr>
+<td>DimDate</td>
+<td>pandas ile 1.826 günün haftanın günü/ISO hafta/artık yıl karşılaştırması</td>
+</tr>
+<tr>
+<td>Excel'de görünecek biçimler</td>
+<td>Hesaplandı, Excel'de <strong>denenmedi</strong></td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

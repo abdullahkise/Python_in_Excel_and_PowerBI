@@ -1,0 +1,20 @@
+{
+  "name": "Pedalova",
+  "dataColors": ["#1F4E79", "#2E86AB", "#F18F01", "#6A994E", "#C73E1D", "#8D6A9F", "#A8A8A8", "#E4572E"],
+  "background": "#FFFFFF",
+  "foreground": "#252423",
+  "tableAccent": "#1F4E79",
+  "good": "#2E8B57",
+  "neutral": "#F2C80F",
+  "bad": "#C73E1D",
+  "maximum": "#1F4E79",
+  "center": "#F2F2F2",
+  "minimum": "#C73E1D",
+  "null": "#A8A8A8",
+  "textClasses": {
+    "callout": { "fontSize": 28, "fontFace": "Segoe UI Semibold", "color": "#1F4E79" },
+    "title": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#252423" },
+    "header": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#1F4E79" },
+    "label": { "fontSize": 10, "fontFace": "Segoe UI", "color": "#605E5C" }
+  }
+}

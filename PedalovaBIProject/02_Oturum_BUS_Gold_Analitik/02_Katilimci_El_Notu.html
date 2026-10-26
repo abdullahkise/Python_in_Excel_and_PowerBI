@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>02_Katilimci_El_Notu.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="oturum-2--katılımcı-el-notu-bus-matrix--gold--excel-analitik">Oturum 2 – Katılımcı El Notu (BUS Matrix → Gold → Excel Analitik)</h1>
+<h2 id="bugünün-sorusu">Bugünün sorusu</h2>
+<p>Silver'daki temiz ama <strong>düz</strong> tabloyu, <strong>soru sorulabilir bir modele</strong> (Star Schema) çeviriyoruz; sonra Excel'de <strong>istatistik</strong> ve <strong>müşteri segmentasyonu</strong> yapıyoruz.</p>
+<h2 id="veri-yaşam-döngüsü-bugünkü-kısım">Veri yaşam döngüsü (bugünkü kısım)</h2>
+<p><code>Silver → Gold (Dim / Fact) → Excel Analitik (Betimsel · Korelasyon · Regresyon · K-Means) → [Power BI: sonraki oturum]</code></p>
+<h2 id="terimler">Terimler</h2>
+<table>
+<thead>
+<tr>
+<th>Terim</th>
+<th>Anlamı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BUS Matrix</strong></td>
+<td>Satırlar = iş süreçleri, sütunlar = ortak boyutlar. Tasarımı koddan önce konuşturan tablo.</td>
+</tr>
+<tr>
+<td><strong>Grain</strong></td>
+<td>Fakt tablosunda bir satırın neyi temsil ettiği. Bizde: <strong>bir siparişin bir ürün satırı</strong>.</td>
+</tr>
+<tr>
+<td><strong>Fact (Olgu)</strong></td>
+<td>Ölçülebilir olaylar (adet, tutar, indirim).</td>
+</tr>
+<tr>
+<td><strong>Dim (Boyut)</strong></td>
+<td>Olayı tanımlayan bağlam (müşteri, ürün, tarih…).</td>
+</tr>
+<tr>
+<td><strong>Conformed dimension</strong></td>
+<td>Birden çok süreçte aynı anlamla kullanılan ortak boyut.</td>
+</tr>
+<tr>
+<td><strong>Surrogate key</strong></td>
+<td>Tablonun kendi verdiği anlamsız tam sayı anahtar (<code>CustomerKey</code>).</td>
+</tr>
+<tr>
+<td><strong>Business key</strong></td>
+<td>Kaynaktaki anahtar (<code>M00227</code>).</td>
+</tr>
+<tr>
+<td><strong>Bilinmiyor üyesi (-1)</strong></td>
+<td>Karşılığı bulunamayan satırlar için hazır &quot;Bilinmiyor&quot; kaydı; NULL anahtar yok.</td>
+</tr>
+<tr>
+<td><strong>Degenerate boyut</strong></td>
+<td>Kendi tablosu olmayan boyut (<code>OrderID</code>).</td>
+</tr>
+<tr>
+<td><strong>SCD Tip 1 / 2</strong></td>
+<td>Boyut değişirse üzerine yaz / yeni satırla tarihçe tut.</td>
+</tr>
+<tr>
+<td><strong>Uzlaştırma</strong></td>
+<td>Kaynak ve hedef satır/tutar toplamlarının tutması (Silver = Gold).</td>
+</tr>
+<tr>
+<td><strong>Korelasyon (r)</strong></td>
+<td>İki değişkenin birlikte değişim gücü (−1…+1). <strong>Nedensellik değildir.</strong></td>
+</tr>
+<tr>
+<td><strong>R²</strong></td>
+<td>Modelin değişkenliğin yüzde kaçını açıkladığı.</td>
+</tr>
+<tr>
+<td><strong>p-değeri</strong></td>
+<td>&quot;Etki yokken bu katsayıyı rastlantıyla görme olasılığı&quot;; &lt; 0,05 genelde anlamlı.</td>
+</tr>
+<tr>
+<td><strong>K-Means</strong></td>
+<td>Müşterileri benzerliğe göre k gruba ayıran yöntem; ölçeklenmiş değişken ister.</td>
+</tr>
+<tr>
+<td><strong>Silhouette</strong></td>
+<td>Kümelerin ne kadar net ayrıldığı (−1…+1; yüksek = iyi).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="star-schema-bugün-kurduğumuz">Star Schema (bugün kurduğumuz)</h2>
+<pre class="hljs"><code><div>DimDate ─┐
+DimCustomer ─┤
+DimProduct ─┤
+DimStore ─┼── FactSales (OrderID × OrderLineID)
+DimChannel ─┤
+DimPayment ─┤
+DimCampaign ─┘
+</div></code></pre>
+<p><strong>KPI formülleri:</strong> Net Satış = Brüt − İndirim · Brüt Kâr = Net − Maliyet · Kâr Marjı = Kâr / Net · AOV = Net / Sipariş sayısı · UPT = Adet / Sipariş sayısı.</p>
+<blockquote>
+<p><code>Quantity</code> <strong>sipariş sayısı değil</strong>, satırdaki ürün adedidir. Sipariş sayısı = <strong>farklı</strong> <code>OrderID</code> sayısı.</p>
+</blockquote>
+<h2 id="analiz-çerçevesi">Analiz çerçevesi</h2>
+<table>
+<thead>
+<tr>
+<th>Analiz</th>
+<th>Sorduğu soru</th>
+<th>Dikkat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Betimsel istatistik</td>
+<td>Veri nasıl görünüyor?</td>
+<td>Ortalama ≫ medyan ise dağılım <strong>çarpık</strong></td>
+</tr>
+<tr>
+<td>Korelasyon</td>
+<td>Hangi değişkenler birlikte değişiyor?</td>
+<td><strong>Nedensellik değil</strong>; türev değişkenler (Net–Kâr) anlamsız</td>
+</tr>
+<tr>
+<td>Regresyon</td>
+<td>Net satışı hangi faktör ne kadar <strong>etkiliyor</strong>?</td>
+<td>Tahmin değil, <strong>etki modelleme</strong>; R², katsayı, p-değeri</td>
+</tr>
+<tr>
+<td>K-Means</td>
+<td>Müşteriler doğal gruplara ayrılıyor mu?</td>
+<td>Önce iş sorusu; ölçekleme; k'yı biz seçeriz</td>
+</tr>
+</tbody>
+</table>
+<h2 id="regresyon-çıktısını-okuma-sırası">Regresyon çıktısını okuma sırası</h2>
+<ol>
+<li><strong>R²</strong> (açıklanan değişkenlik) → 2. <strong>F-anlamlılık</strong> (model bir bütün olarak anlamlı mı?) → 3. <strong>Katsayı</strong> (yön + büyüklük) → 4. <strong>p-değeri</strong> (anlamlı mı?) → 5. <strong>Güven aralığı</strong> (0'ı içeriyor mu?).</li>
+</ol>
+<h2 id="cheat-sheet">Cheat-sheet</h2>
+<p><strong>Excel:</strong> <code>=KORELASYON(A:A;B:B)</code> (İng. <code>CORREL</code>) · Veri &gt; Veri Analizi &gt; Tanımlayıcı İstatistik / Korelasyon / Regresyon · Etiketler ✔.
+<strong>Python in Excel:</strong></p>
+<pre class="hljs"><code><div>df = xl(<span class="hljs-string">&quot;Musteri_RFM[#All]&quot;</span>, headers=<span class="hljs-literal">True</span>)
+X = StandardScaler().fit_transform(df[[<span class="hljs-string">&quot;TotalSpend&quot;</span>, <span class="hljs-string">&quot;OrderCount&quot;</span>, <span class="hljs-string">&quot;AvgBasket&quot;</span>]])
+KMeans(n_clusters=<span class="hljs-number">4</span>, n_init=<span class="hljs-number">10</span>, random_state=<span class="hljs-number">42</span>).fit(X)
+</div></code></pre>
+<p><strong>SQL:</strong> <code>ISNULL(anahtar, -1)</code> · <code>ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ... DESC)</code> (son kayıt) · <code>CROSS APPLY (SELECT ...)</code> (katmanlı hesap).</p>
+<p><strong>Bugünün çıktıları (bu veri seti):</strong> FactSales <strong>17.957</strong> satır · Net Satış <strong>41.398.229</strong> TL · AOV <strong>5.695</strong> TL · Regresyon R² <strong>0,09</strong> · <strong>4</strong> müşteri segmenti.</p>
+<h2 id="kendini-sına">Kendini sına</h2>
+<ol>
+<li>Fakt tablosunun grain'i neden &quot;sipariş satırı&quot;?</li>
+<li>Bilinmeyen müşteri için neden NULL değil -1?</li>
+<li>Net ile kâr arasındaki 0,96 korelasyon neden &quot;keşif&quot; değil?</li>
+<li>R² düşükse model işe yaramaz mı?</li>
+<li>K-Means'e vermeden önce neden değişkenleri ölçekleriz?</li>
+</ol>
+
+</body>
+</html>

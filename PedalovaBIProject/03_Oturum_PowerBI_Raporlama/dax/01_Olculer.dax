@@ -1,0 +1,221 @@
+// =====================================================================
+// 01_Olculer.dax  -  Pedalova Power BI modeli: TÜM DAX (ölçüler, hesaplanmış sütun/tablo)
+//
+// Model (Import): FactSales, DimDate, DimCustomer, DimProduct, DimStore, DimChannel, DimPayment, DimCampaign (Gold)
+//                 Musteri_Segmentleri (Excel CSV), DQ_Ozet / DQ_Kural / DQ_Boyut (dq.vw_DQ_* view'ları)
+// Ölçü tablosu: "_Ölçüler" (Veri Girin ile boş tablo oluştur, ölçüleri buraya ekle; sütununu gizle).
+// Kural: ölçü adları TÜRKÇE; kolonlar Gold'daki İNGİLİZCE adlarıyla kalır (Proje_Sozlesmesi.md §6).
+// Her ölçünün altında/üstünde 1 satır açıklama ve (varsa) "Beklenen" değer yer alır.
+// Beklenenler: mevcut veri (24 ay, 2023-01 … 2024-12; 161.809 fakt satırı); hesaplayan araç: python\o3_hesapla.py (veri değişirse yeniden çalıştır)
+// ⚠️ Bu DAX Power BI'da çalıştırılmadı (hazırlayan ortamda Power BI yok); fonksiyonlar ve sözdizimi dikkatle yazıldı,
+//    beklenen değerler pandas karşılıklarıyla hesaplandı. İlk provada karşılaştır.
+// =====================================================================
+
+
+// ---------------------------------------------------------------------
+// 0. MODEL HAZIRLIĞI (hesaplanmış sütun / tablo)
+// ---------------------------------------------------------------------
+
+// DimDate hesaplanmış sütunu: satış verisinin son gününden sonraki tarihleri "Hayır" yapar.
+// Neden? DimDate 2026 sonuna kadar uzanır; filtresiz kartta YTD "2026 YTD" olur ve BOŞ döner. Rapor düzeyi filtre:
+// DimDate[Veri Aralığında] = TRUE  ->  kartlar veri sonu tarihine (2024-12-31) göre hesaplanır.
+Veri Aralığında = DimDate[DateKey] <= MAX(FactSales[DateKey])
+
+// Korelasyon matrisi için bağlantısız (disconnected) eksen tabloları (Modelleme > Yeni tablo):
+Değişken X = DATATABLE("Değişken", STRING, "Sıra", INTEGER,
+    {{"Adet", 1}, {"İndirim Oranı", 2}, {"Müşteri Yaşı", 3}, {"Net Satış", 4}, {"Brüt Kâr", 5}})
+Değişken Y = DATATABLE("Değişken", STRING, "Sıra", INTEGER,
+    {{"Adet", 1}, {"İndirim Oranı", 2}, {"Müşteri Yaşı", 3}, {"Net Satış", 4}, {"Brüt Kâr", 5}})
+// (İki tablo AYNI sütun adını taşır ama modelde BAĞLANTISIZDIR; "Sıra" sütununa göre sırala: Sütun araçları > Sütuna göre sırala.)
+
+// Sütuna göre sırala: MonthName <- MonthNo, MonthShort <- MonthNo, DayName <- DayOfWeekNo, QuarterName <- Quarter, AgeGroup (metin sırası uygun).
+
+
+// ---------------------------------------------------------------------
+// 1. TEMEL ÖLÇÜLER  (Sözleşme §12 ile birebir)
+// ---------------------------------------------------------------------
+Brüt Satış = SUM(FactSales[GrossAmount])                                       // Σ Adet x Fiyat. Beklenen: 532.228.915,00
+İndirim Tutarı = SUM(FactSales[DiscountAmount])                                // Σ Brüt x İndirim oranı. Beklenen: 38.796.182,25
+Net Satış = SUM(FactSales[NetAmount])                                          // Brüt - İndirim. Beklenen: 493.432.732,75
+Maliyet = SUM(FactSales[CostAmount])                                           // Σ Adet x Birim maliyet. Beklenen: 347.586.557,85
+Brüt Kâr = SUM(FactSales[GrossProfit])                                         // Net - Maliyet. Beklenen: 145.846.174,90
+Kâr Marjı % = DIVIDE([Brüt Kâr], [Net Satış])                                  // Oran: toplanmaz, her bağlamda yeniden bölünür. Beklenen: 29,56 %
+Satış Adedi = SUM(FactSales[Quantity])                                         // Ürün adedi (SİPARİŞ SAYISI DEĞİL). Beklenen: 214.526
+Sipariş Sayısı = DISTINCTCOUNT(FactSales[OrderID])                             // Benzersiz sipariş. Beklenen: 64.364
+Müşteri Sayısı = CALCULATE(DISTINCTCOUNT(FactSales[CustomerKey]), FactSales[CustomerKey] <> -1)   // "Bilinmiyor" (-1) hariç. Beklenen: 2.996
+AOV = DIVIDE([Net Satış], [Sipariş Sayısı])                                    // Ortalama sepet tutarı. Beklenen: 7.666,28
+UPT = DIVIDE([Satış Adedi], [Sipariş Sayısı])                                  // Sepet başına ürün adedi. Beklenen: 3,333
+Ortalama İndirim % = DIVIDE([İndirim Tutarı], [Brüt Satış])                    // Tutar ağırlıklı indirim (satır ortalaması DEĞİL). Beklenen: 7,29 %
+
+
+// ---------------------------------------------------------------------
+// 2. CALCULATE ve FİLTRE KAPSAMI
+// ---------------------------------------------------------------------
+Bisiklet Net Satış = CALCULATE([Net Satış], DimProduct[Category] = "Bisiklet")                   // Kategori filtresini EZER. Beklenen: 281.849.553,50
+Kampanyalı Net Satış = CALCULATE([Net Satış], DimCampaign[CampaignName] <> "Kampanya Yok")       // Beklenen: 397.033.822,00
+Yüksek İndirimli Satır = CALCULATE(COUNTROWS(FactSales), FactSales[DiscountRate] >= 0.1)          // >= %10 indirimli satır sayısı. Beklenen: 66.887
+Bisikletli Sipariş Sayısı = CALCULATE([Sipariş Sayısı], DimProduct[Category] = "Bisiklet")        // Beklenen: 8.563
+
+
+// ---------------------------------------------------------------------
+// 3. PAY ORANI  (ALL / ALLSELECTED / REMOVEFILTERS / ALLEXCEPT)
+// ---------------------------------------------------------------------
+// Ürün filtrelerinin TAMAMINI kaldırır: payda = toplam satış (dilimleyici seçimi de dahil kaldırılır)
+Pay % (Toplam) = DIVIDE([Net Satış], CALCULATE([Net Satış], ALL(DimProduct)))
+// Beklenen (kategori): Bisiklet 57,12 % · Bileşen 24,40 % · Aksesuar 18,48 %
+
+// Yalnızca GÖRÜNÜR (dilimleyiciyle seçilmiş) ürünler içindeki pay: seçim = Bileşen + Aksesuar ise Bileşen 56,91 %, Aksesuar 43,09 %
+Pay % (Görünür) = DIVIDE([Net Satış], CALCULATE([Net Satış], ALLSELECTED(DimProduct)))
+
+// Kategori İÇİNDEKİ pay: kategori korunur, diğer ürün sütunları kaldırılır (matriste Kategori > Alt Kategori)
+// Beklenen: Elektrikli Bisiklet / Bisiklet = 55,44 % · Vites / Bileşen = 33,53 % · Kask / Aksesuar = 49,15 %
+Pay % (Kategori İçi) = DIVIDE([Net Satış], CALCULATE([Net Satış], ALLEXCEPT(DimProduct, DimProduct[Category])))
+
+// REMOVEFILTERS = ALL'ın yalnızca "filtre kaldır" amaçlı, okunabilir hali (tablo döndürmez)
+Kampanya Payı % = DIVIDE([Net Satış], CALCULATE([Net Satış], REMOVEFILTERS(DimCampaign)))
+// Beklenen: Kampanya Yok 19,54 % · Yaz 18,94 % · Ramazan 17,62 % · Yılbaşı 13,00 % · Kurban Bayramı 12,43 % · Kasım 10,01 % · Okula Dönüş 8,46 %
+
+Segment Payı % = DIVIDE([Net Satış], CALCULATE([Net Satış], REMOVEFILTERS(Musteri_Segmentleri)))
+// Beklenen: Düzenli Orta 31,38 % · Sık Küçük Alıcı 27,80 % · Düşük Hacimli 27,47 % · Nadir Büyük Sepet 13,36 %
+
+
+// ---------------------------------------------------------------------
+// 4. TIME INTELLIGENCE  (DimDate[FullDate] = tarih tablosu olarak İŞARETLENMİŞ olmalı)
+// ---------------------------------------------------------------------
+// Verideki son satış günü (dilimleyici/filtre bağlamında). Beklenen (filtresiz): 2024-12-31
+Son Satış Tarihi = CALCULATE(MAX(DimDate[FullDate]), FILTER(ALL(DimDate[FullDate]), [Net Satış] > 0))
+
+// YTD: yıl başından bağlamdaki son güne kadar (her yıl SIFIRLANIR). İki eşdeğer yazım:
+Net Satış YTD = TOTALYTD([Net Satış], DimDate[FullDate])
+Net Satış YTD (DATESYTD) = CALCULATE([Net Satış], DATESYTD(DimDate[FullDate]))
+// Beklenen (ay görünümü): 2023 Ocak 10.367.477,00 · Mart 34.677.601,25 · Haziran 103.415.516,50 · Aralık 213.236.565,75
+//                          2024 Ocak 12.329.492,50 (sıfırlandı) · Haziran 137.376.943,50 · Aralık 280.196.167,00 | Kart (filtresiz): 280.196.167,00
+
+Net Satış QTD = CALCULATE([Net Satış], DATESQTD(DimDate[FullDate]))
+// Beklenen (ay): 2023 Ocak 10.367.477,00 · Şubat 19.008.990,50 · Mart 34.677.601,25 · Nisan 20.532.994,75 (yeni çeyrek) · Haziran 68.737.915,25 | 2024 Aralık 65.169.971,00 | Kart: 65.169.971,00
+
+Net Satış MTD = CALCULATE([Net Satış], DATESMTD(DimDate[FullDate]))
+// Beklenen (ay): ay sonu = o ayın Net'i (2024 Aralık 22.565.971,00 = Kart). Gün düzeyi: 15 Mart 2024 → 9.894.255,25 · 15 Haziran 2024 → 17.264.891,25
+
+// Geçen yılın aynı dönemi ve YoY %. 2023 ayları için 2022 verisi YOK -> BOŞ; 2024 ayları için DOLU.
+Net Satış LY = CALCULATE([Net Satış], SAMEPERIODLASTYEAR(DimDate[FullDate]))
+Net Satış YoY % = DIVIDE([Net Satış] - [Net Satış LY], [Net Satış LY])
+// Beklenen (2024 ay → YoY %): Ocak 18,92 · Şubat 25,24 · Mart 32,05 · Nisan 46,37 · Mayıs 29,02 · Haziran 33,93 · Temmuz 34,73 ·
+//   Ağustos 34,04 · Eylül 36,02 · Ekim 30,28 · Kasım 26,16 · Aralık 19,59 | 2023: BOŞ
+
+// Kartlar için sağlam YoY: YTD'yi bir yıl geri kaydırır (filtresiz kartta da anlamlı)
+Net Satış YTD LY = CALCULATE([Net Satış YTD], SAMEPERIODLASTYEAR(DimDate[FullDate]))
+Net Satış YTD YoY % = DIVIDE([Net Satış YTD] - [Net Satış YTD LY], [Net Satış YTD LY])
+// Beklenen (kart, filtresiz): YTD 280.196.167,00 · YTD LY 213.236.565,75 · YoY +31,40 %
+
+// Önceki ay ve aylık büyüme (MoM): ay düzeyindeki görsellerde (eksende Ay) kullan
+Net Satış Önceki Ay = CALCULATE([Net Satış], PREVIOUSMONTH(DimDate[FullDate]))
+Net Satış MoM % = DIVIDE([Net Satış] - [Net Satış Önceki Ay], [Net Satış Önceki Ay])
+// Beklenen (ay): 2023 Ocak BOŞ · Şubat -16,65 % · Mart +81,32 % · … · 2024 Ocak -34,66 % · Mart +91,17 % · Kasım +83,07 % · Aralık -18,10 %
+
+// Yönetici özeti "Büyüme" kartı: filtresiz kartta bile ÇALIŞIR (son satış ayını bir önceki aya göre kıyaslar)
+// Beklenen: -18,10 %  (Aralık 22.565.971,00 / Kasım 27.553.283,25). Yıllık büyüme için YTD YoY kartı (+31,40 %) kullanılır.
+Büyüme (Son Ay MoM %) =
+VAR sonTarih = [Son Satış Tarihi]
+VAR sonAyBas = DATE(YEAR(sonTarih), MONTH(sonTarih), 1)
+VAR oncekiBas = EDATE(sonAyBas, -1)
+VAR sonAy = CALCULATE([Net Satış], DATESBETWEEN(DimDate[FullDate], sonAyBas, sonTarih))
+VAR oncekiAy = CALCULATE([Net Satış], DATESBETWEEN(DimDate[FullDate], oncekiBas, EOMONTH(oncekiBas, 0)))
+RETURN DIVIDE(sonAy - oncekiAy, oncekiAy)
+
+// Hareketli 3 ay: bağlamdaki son günden geriye 3 ay (DATESINPERIOD). Beklenen: 2023 Mart 34.677.601,25 · 2024 Haziran 93.534.714,75 · 2024 Aralık 65.169.971,00
+Net Satış Son 3 Ay = CALCULATE([Net Satış], DATESINPERIOD(DimDate[FullDate], MAX(DimDate[FullDate]), -3, MONTH))
+
+
+// ---------------------------------------------------------------------
+// 5. KAMPANYA KIYASI  (Ramazan 4 ay, Kurban 2 ay -> TOPLAM değil AY BAŞINA kıyasla)
+// ---------------------------------------------------------------------
+Satış Olan Ay Sayısı = COUNTROWS(FILTER(VALUES(DimDate[YearMonth]), [Net Satış] > 0))       // Beklenen: Ramazan 4 · Kurban 2 · Yaz 4 · Yılbaşı 4 · Kasım 2 · Okula Dönüş 2 · Kampanya Yok 6
+Ay Başına Net Satış = DIVIDE([Net Satış], [Satış Olan Ay Sayısı])                              // Beklenen: Kurban 30.677.563,13 · Kasım 24.696.198,38 · Yaz 23.367.738,94 · Ramazan 21.736.283,44 · Okula Dönüş 20.868.750,75 · Kampanya Yok 16.066.485,13 · Yılbaşı 16.033.177,00
+Kampanya Dönemi İndirim % = [Ortalama İndirim %]                                               // Beklenen: Okula Dönüş 8,43 · Yılbaşı 8,42 · Ramazan 8,38 · Yaz 8,35 · Kurban 8,21 · Kasım 8,20 · Kampanya Yok 2,71 %
+
+
+// ---------------------------------------------------------------------
+// 6. MÜŞTERİ / SEGMENT  (Musteri_Segmentleri[CustomerID] 1:1 DimCustomer[CustomerID])
+// ---------------------------------------------------------------------
+// Segmenti olmayan müşteri ("Bilinmiyor" -1 üyesi) için etiket
+Segment Adı = IF(ISBLANK(SELECTEDVALUE(Musteri_Segmentleri[Segment])), "Segment yok", SELECTEDVALUE(Musteri_Segmentleri[Segment]))
+// Beklenen (Segment: müşteri / sipariş / Net / AOV): Düzenli Orta 628 / 12.943 / 154.828.060,75 / 11.962,30 ·
+//   Sık Küçük Alıcı 668 / 30.578 / 137.163.502,50 / 4.485,69 · Düşük Hacimli 1.349 / 18.548 / 135.532.113,50 / 7.307,10 ·
+//   Nadir Büyük Sepet 351 / 2.295 / 65.909.056,00 / 28.718,54   (segmentler: K-Means k=4, random_state=42, 2.996 müşteri)
+// Beklenen (Yaş grubu: müşteri / Net): 18-24 270 / 38.390.092,75 · 25-34 732 / 105.932.246,25 · 35-44 1.104 / 183.136.629,50 · 45-54 662 / 123.722.750,25 · 55+ 228 / 42.251.014,00
+// Beklenen (Şehir, ilk 3 Net): İstanbul 150.829.504,00 (908 müşteri) · Ankara 67.009.107,75 (410) · İzmir 55.143.905,25 (344)
+
+
+// ---------------------------------------------------------------------
+// 7. VERİ KALİTESİ  (dq.vw_DQ_* view'ları; O1)
+// ---------------------------------------------------------------------
+DQ Skoru = MAX(DQ_Ozet[DQScore])                                    // Beklenen: 94,98   (tek satırlık tablo: MAX/SELECTEDVALUE aynı)
+Silver Kabul % = MAX(DQ_Ozet[SilverAcceptancePct])                  // Beklenen: 98,25
+Karantina Satır = MAX(DQ_Ozet[QuarantineRows])                      // Beklenen: 1.291
+Tekrar Satır = MAX(DQ_Ozet[DuplicateRows])                          // Beklenen: 1.594
+Bronze Satır = MAX(DQ_Ozet[BronzeRows])                             // Beklenen: 164.694
+Boş Değer İhlali (Tamlık) = CALCULATE(SUM(DQ_Boyut[ViolatedRows]), DQ_Boyut[Dimension] = "Tamlık")   // Beklenen: 783
+DQ Hedef = 98                                                       // İş kuralı: hedef skor (örnek)
+DQ Durum = SWITCH(TRUE(), [DQ Skoru] >= [DQ Hedef], "Hedefte", [DQ Skoru] >= 95, "Dikkat", "Kritik")   // Beklenen: Kritik (94,98 < 95) - HAM veri skoru; Silver sonrası kullanılabilir veri %98,25
+
+
+// ---------------------------------------------------------------------
+// 8. İLERİ ANALİTİK: KORELASYON
+// ---------------------------------------------------------------------
+// ⚠️ DAX'te yerleşik CORREL/KORELASYON fonksiyonu YOKTUR. İki yol:
+//   (a) Hızlı ölçü (arayüz): Hızlı ölçü > "Korelasyon katsayısı" (menü adı sürüme göre değişebilir; "Matematiksel işlemler" altında).
+//       Kategori = bir boyut sütunu (ör. DimCustomer[CustomerID]); X ve Y = iki ÖLÇÜ. Ürettiği DAX, kategori düzeyinde
+//       iki ölçünün Pearson korelasyonunu SUMX/AVERAGEX ile hesaplar. ÜRETİLEN KODU OKU ve aşağıdaki (b) ile sonucu DOĞRULA.
+//   (b) Elle SUMX tabanlı Pearson (aşağıdaki iki ölçü): r = Σ(x-x̄)(y-ȳ) / √(Σ(x-x̄)² · Σ(y-ȳ)²)
+
+// (b-1) Müşteri düzeyinde: iki ÖLÇÜNÜN korelasyonu (hızlı ölçüyle aynı mantık).
+// Beklenen: corr([Ortalama İndirim %], [UPT]) = 0,2071 · corr([Ortalama İndirim %], [AOV]) = -0,0457 · corr([UPT], [AOV]) = 0,5044 (n = 2.996 müşteri)
+Korelasyon (Müşteri: İndirim - UPT) =
+VAR T = ADDCOLUMNS(VALUES(DimCustomer[CustomerID]), "xDeger", [Ortalama İndirim %], "yDeger", [UPT])
+VAR T2 = FILTER(T, NOT ISBLANK([xDeger]) && NOT ISBLANK([yDeger]))
+VAR xm = AVERAGEX(T2, [xDeger])
+VAR ym = AVERAGEX(T2, [yDeger])
+VAR sxy = SUMX(T2, ([xDeger] - xm) * ([yDeger] - ym))
+VAR sxx = SUMX(T2, ([xDeger] - xm) ^ 2)
+VAR syy = SUMX(T2, ([yDeger] - ym) ^ 2)
+RETURN DIVIDE(sxy, SQRT(sxx * syy))
+
+// (b-2) Isı haritası (matris): satır = Değişken X, sütun = Değişken Y; satır düzeyi (FactSales), yaşı geçerli satırlar (n = 161.472 = Excel/pandas ile aynı).
+// Değerler matrise Koşullu biçimlendirme > Arka plan rengi > Gradyan (min -1, merkez 0, maks +1) ile boyanır.
+// Beklenen: Adet-İndirim 0,2987 · Net-Kâr 0,9530 · Adet-Net 0,0154 · Adet-Kâr 0,0504 · İndirim-Yaş -0,0092 · İndirim-Net 0,0148 ·
+//           İndirim-Kâr -0,0563 · Yaş-Adet -0,0008 · Yaş-Net 0,0374 · Yaş-Kâr 0,0292 (köşegen = 1)
+Korelasyon (Pearson) =
+VAR x = SELECTEDVALUE('Değişken X'[Değişken])
+VAR y = SELECTEDVALUE('Değişken Y'[Değişken])
+VAR T = FILTER(ALLSELECTED(FactSales), NOT ISBLANK(FactSales[CustomerAgeAtOrder]))
+VAR xm = AVERAGEX(T, SWITCH(x, "Adet", FactSales[Quantity], "İndirim Oranı", FactSales[DiscountRate],
+                               "Müşteri Yaşı", FactSales[CustomerAgeAtOrder], "Net Satış", FactSales[NetAmount],
+                               "Brüt Kâr", FactSales[GrossProfit]))
+VAR ym = AVERAGEX(T, SWITCH(y, "Adet", FactSales[Quantity], "İndirim Oranı", FactSales[DiscountRate],
+                               "Müşteri Yaşı", FactSales[CustomerAgeAtOrder], "Net Satış", FactSales[NetAmount],
+                               "Brüt Kâr", FactSales[GrossProfit]))
+VAR sxy = SUMX(T, (SWITCH(x, "Adet", FactSales[Quantity], "İndirim Oranı", FactSales[DiscountRate],
+                             "Müşteri Yaşı", FactSales[CustomerAgeAtOrder], "Net Satış", FactSales[NetAmount],
+                             "Brüt Kâr", FactSales[GrossProfit]) - xm)
+               * (SWITCH(y, "Adet", FactSales[Quantity], "İndirim Oranı", FactSales[DiscountRate],
+                             "Müşteri Yaşı", FactSales[CustomerAgeAtOrder], "Net Satış", FactSales[NetAmount],
+                             "Brüt Kâr", FactSales[GrossProfit]) - ym))
+VAR sxx = SUMX(T, (SWITCH(x, "Adet", FactSales[Quantity], "İndirim Oranı", FactSales[DiscountRate],
+                             "Müşteri Yaşı", FactSales[CustomerAgeAtOrder], "Net Satış", FactSales[NetAmount],
+                             "Brüt Kâr", FactSales[GrossProfit]) - xm) ^ 2)
+VAR syy = SUMX(T, (SWITCH(y, "Adet", FactSales[Quantity], "İndirim Oranı", FactSales[DiscountRate],
+                             "Müşteri Yaşı", FactSales[CustomerAgeAtOrder], "Net Satış", FactSales[NetAmount],
+                             "Brüt Kâr", FactSales[GrossProfit]) - ym) ^ 2)
+RETURN IF(ISBLANK(x) || ISBLANK(y), BLANK(), DIVIDE(sxy, SQRT(sxx * syy)))
+
+
+// ---------------------------------------------------------------------
+// 9. İLERİ ANALİTİK: REGRESYON ÖZETİ (Excel ToolPak sonucu; Power BI regresyon HESAPLAMAZ)
+// ---------------------------------------------------------------------
+// "Veri Girin" ile statik tablo: Regresyon_Ozeti (Değişken, Katsayı, Std Hata, t, p-değeri) -> tablo görseli.
+// Satırlar: Kesişim -3277,41 / 230,75 / -14,20 / 0,0000 · OrderQty 2501,05 / 29,04 / 86,11 / 0,0000 ·
+//           AvgDiscountRate -7634,40 / 1075,96 / -7,10 / 0,0000 · CustomerAge 80,39 / 5,10 / 15,76 / 0,0000 | R² 0,1078, n = 64.346 sipariş
+// Görsel: Dağılım grafiği (Scatter) X = sipariş toplam adedi, Y = sipariş Net Satışı, ayrıntı = FactSales[OrderID];
+//         Analiz bölmesi > Eğilim çizgisi (görsel çizgi; R² göstermez -> R² kartı statik "0,108" metni).
+// (Ek ölçü gerekmez: ayrıntı alanına FactSales[OrderID] konunca [Satış Adedi] ve [Net Satış] sipariş düzeyine iner.)

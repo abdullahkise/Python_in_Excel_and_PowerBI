@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>04_Sorun_Giderme_PlanB.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="oturum-2--sorun-giderme-ve-plan-b">Oturum 2 – Sorun Giderme ve Plan B</h1>
+<blockquote>
+<p>Format: <strong>belirti → olası neden → çözüm</strong>. Canlı demo çökerse §6 (Plan B) devreye girer.</p>
+</blockquote>
+<h2 id="1-sql--gold-kurulumu-ve-yükleme">1. SQL – Gold kurulumu ve yükleme</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Olası neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid object name 'silver.Sales'</code> / <code>usp_Load_Gold</code> → &quot;silver.Sales boş&quot; (Msg 50003)</td>
+<td>O1 tamamlanmamış</td>
+<td><code>01_Oturum_Excel_Bronze_Silver\sql\99_Hepsini_Calistir.sql</code> çalıştır.</td>
+</tr>
+<tr>
+<td><code>gold.DimDate boş</code> (Msg 50004)</td>
+<td><code>11_Gold_DimDate.sql</code> atlandı</td>
+<td>11'i çalıştır, sonra <code>EXEC gold.usp_Load_Gold</code>.</td>
+</tr>
+<tr>
+<td><code>Msg 547 … FK_FactSales_Date</code> (yükleme sırasında)</td>
+<td>Sipariş tarihi DimDate aralığı dışında (ör. 24 ay veri + eski aralık)</td>
+<td><code>11_Gold_DimDate.sql</code>'de <code>@StartDate/@EndDate</code>'i genişlet ve yeniden çalıştır (eksik tarihleri ekler).</td>
+</tr>
+<tr>
+<td><code>Msg 547 … FK_FactSales_Customer</code> vb.</td>
+<td>Boyut yüklenmeden fakt yüklendi veya -1 üyesi silinmiş</td>
+<td><code>10_Gold_Tablolar.sql</code>'i baştan çalıştır (-1 üyelerini oluşturur), sonra <code>usp_Load_Gold</code>. Fakt'ı elle yüklemek yerine <strong><code>usp_Load_Gold</code></strong> kullan (sırayı garanti eder).</td>
+</tr>
+<tr>
+<td><code>Cannot insert explicit value for identity column … IDENTITY_INSERT is set to OFF</code></td>
+<td><code>-1</code> üyesi eklenirken <code>SET IDENTITY_INSERT … ON</code> eksik</td>
+<td><code>10_Gold_Tablolar.sql</code>'deki bloğu aynen kullan.</td>
+</tr>
+<tr>
+<td><code>Violation of UNIQUE KEY constraint 'UQ_gold_DimCustomer_ID'</code></td>
+<td>Silver'da aynı müşteri iki farklı biçimde (ör. büyük/küçük harf)</td>
+<td>O1 <code>fn_NormalizeCustomerID</code> çalışmış olmalı; <code>silver.Sales</code>'te <code>MusteriID</code> biçimini kontrol et (<code>O1 40_Silver_Dogrulama.sql</code> DQ16 = 0).</td>
+</tr>
+<tr>
+<td><code>Violation of PRIMARY KEY constraint 'PK_gold_FactSales'</code></td>
+<td><code>silver.Sales</code>'te tekrar (DQ17)</td>
+<td>O1 <code>40_Silver_Dogrulama.sql</code> → &quot;DQ17 = 0&quot; olmalı; değilse Silver'ı yeniden yükle.</td>
+</tr>
+<tr>
+<td><code>Cannot truncate table 'gold.DimX' because it is being referenced by a FOREIGN KEY</code></td>
+<td>Boyutu TRUNCATE etmeye çalışıldı</td>
+<td>Boyutlar UPSERT'tür, TRUNCATE edilmez; sıfırlamak için <code>10_Gold_Tablolar.sql</code>'i çalıştır.</td>
+</tr>
+<tr>
+<td><code>'CHOOSE' / 'DATEPART(ISO_WEEK…)' not recognized</code></td>
+<td>Çok eski uyumluluk düzeyi</td>
+<td><code>ALTER DATABASE BikeRetailDW SET COMPATIBILITY_LEVEL = 170;</code></td>
+</tr>
+<tr>
+<td><code>Arithmetic overflow error converting numeric to data type numeric</code></td>
+<td>Ölçü kolonu dar</td>
+<td><code>DECIMAL(14,2)</code> kolonlarında beklenmedik büyük değer: Silver aykırı fiyat kuralı (DQ06) çalışmış mı?</td>
+</tr>
+<tr>
+<td>Türkçe ay/gün adları bozuk</td>
+<td>Dosya BOM'suz açıldı</td>
+<td>UTF-8 imzalı kaydet (O1 Sorun Giderme §2).</td>
+</tr>
+<tr>
+<td>Fakt satırı ≠ 17.957</td>
+<td>Silver değişti / farklı veri</td>
+<td>Önce <code>silver.Sales</code> satırını kontrol et; <code>o2_hesapla.py</code> çıktısını <strong>gerçek beklenen</strong> kabul et.</td>
+</tr>
+<tr>
+<td>Net tutar farkı ≠ 0,00</td>
+<td>Silver'da 2 ondalıktan fazla veren fiyat/indirim</td>
+<td>Yuvarlama farkı ≤ 0,005 × satır sayısı; tutarlı bir fark kalıyorsa <code>vw_Src_FactSales</code> formüllerini incele.</td>
+</tr>
+<tr>
+<td><code>Silver'da 'Bilinmiyor'</code> müşteri adı / şehir var</td>
+<td>O1'de eşleme eksik</td>
+<td>O1 sorun giderme §3; <code>RefValueMap</code>'e varyantı ekle, Silver'ı yeniden yükle.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-excel--golda-bağlanma-power-query">2. Excel – Gold'a bağlanma (Power Query)</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataSource.Error: … certificate chain was issued by an authority that is not trusted</code></td>
+<td>SQL Server 2025 / ODBC 18 varsayılan <strong>şifreli bağlantı</strong>, sertifika güvenilmiyor</td>
+<td>Bağlantı iletişim kutusunda <em>Gelişmiş</em> → ya sunucuya güvenilen sertifika kur, ya da (yalnızca eğitim ortamında) bağlantı dizesine <code>TrustServerCertificate=True</code> / &quot;Şifrelemeyi devre dışı bırak&quot;.</td>
+</tr>
+<tr>
+<td><code>Expression.Error: Parameter 'SqlSunucu' …</code></td>
+<td>Parametre tanımlı değil</td>
+<td><code>SqlSunucu</code> ve <code>SqlVeritabani</code> parametrelerini oluştur (Sorgu Yönet &gt; Parametreleri Yönet).</td>
+</tr>
+<tr>
+<td>Kimlik doğrulama istemi tekrar tekrar</td>
+<td>Kayıtlı kimlik bilgisi yok</td>
+<td><em>Windows</em> seç, <em>Bağlan</em>; <em>Veri &gt; Veri Kaynağı Ayarları &gt; İzinleri Temizle</em> ile sıfırla.</td>
+</tr>
+<tr>
+<td>Tablo 17.954 yerine farklı satır</td>
+<td>Veri değişti</td>
+<td><code>o2_hesapla.py</code> çıktısı gerçek beklenen.</td>
+</tr>
+<tr>
+<td>Sütun sırası bozuk</td>
+<td>Sorguda sütun taşındı</td>
+<td>View sütun sırasını bozmadan al (ilk 6 sütun = analiz aralığı).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-excel--toolpak-betimsel--korelasyon--regresyon">3. Excel – ToolPak (Betimsel / Korelasyon / Regresyon)</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Veri Analizi</em> düğmesi yok</td>
+<td>ToolPak yüklü değil</td>
+<td>Dosya &gt; Seçenekler &gt; Eklentiler &gt; Yönet: <strong>Excel Eklentileri</strong> &gt; Git… &gt; ✔ <em>Analysis ToolPak</em>.</td>
+</tr>
+<tr>
+<td><code>Giriş aralığı sayısal olmayan veri içeriyor</code></td>
+<td>Etiketler işaretli değil veya sütun metin</td>
+<td><strong>Etiketler ilk satırda</strong> ✔; Power Query'de tipleri <code>type number</code> yap.</td>
+</tr>
+<tr>
+<td>Regresyon: <em>&quot;Giriş X Aralığı bitişik olmalı&quot;</em></td>
+<td>X sütunları bitişik değil</td>
+<td><code>Siparis_Duzeyi</code>'nin B:D sütunlarını seç (view sırası buna göre).</td>
+</tr>
+<tr>
+<td>Regresyon: <code>#N/A</code>/hata, boş hücre</td>
+<td>NULL/boş değer</td>
+<td>View'lar NULL yaşlı satırları çıkarır; yine olursa Power Query'de boş satırları kaldır.</td>
+</tr>
+<tr>
+<td>Sonuçlar beklenenden küçük farkla çıkıyor</td>
+<td>Görüntü biçimi / yuvarlama</td>
+<td>Hücre biçimini 4 ondalığa çıkar; farklı satır sayısını doğrula (<strong>17.954 / 7.269</strong>).</td>
+</tr>
+<tr>
+<td>Korelasyon çıktısı yalnızca alt üçgen</td>
+<td>ToolPak böyle çalışır</td>
+<td>Normal; üst üçgeni elle aynala veya <code>KORELASYON()</code> formülü kullan.</td>
+</tr>
+<tr>
+<td>Heatmap'te her şey kırmızı/mavi</td>
+<td>Renk ölçeği min/max'ı veriden alıyor</td>
+<td>Uçları <strong>sabitle</strong>: Min −1, Orta 0, Max +1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-python-in-excel-k-means">4. Python in Excel (K-Means)</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Neden</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Python Ekle</code> yok / &quot;Python is not available&quot;</td>
+<td>Lisans/kanal/oturum</td>
+<td>Microsoft 365 sürümünü ve hesabı kontrol et; çevrimiçi oturumda dene.</td>
+</tr>
+<tr>
+<td><code>#PYTHON!</code> / <code>xl()</code> tablo bulunamadı</td>
+<td>Tablo adı <code>Musteri_RFM</code> değil</td>
+<td>Tablo Tasarımı &gt; Tablo Adı = <strong>Musteri_RFM</strong> (birebir).</td>
+</tr>
+<tr>
+<td>Çıktı sayfaya yayılmıyor</td>
+<td>Çıktı türü <em>Python Nesnesi</em></td>
+<td>Hücre &gt; Çıktı türü &gt; <strong>Excel Değeri</strong>.</td>
+</tr>
+<tr>
+<td><code>NameError: X is not defined</code></td>
+<td>Hücre sırası bozuk</td>
+<td>Python in Excel hücreleri <strong>sol-üstten sağ-alta</strong> hesaplar; blokları <strong>aynı sütunda alt alta</strong> yerleştir.</td>
+</tr>
+<tr>
+<td>Grafik görünmüyor</td>
+<td>Son ifade <code>fig</code> değil</td>
+<td>Her grafik bloğunun son satırı <code>fig</code>; çıktıyı <em>Python Nesnesi</em> bırak.</td>
+</tr>
+<tr>
+<td>Küme sayıları/numaraları farklı</td>
+<td>sklearn sürümü farkı</td>
+<td>Normal; <strong>boyutlar ve profil ortalamaları</strong> aynı olmalı. Fark büyükse <code>kmeans_yerel_test.py</code> çıktısıyla karşılaştır.</td>
+</tr>
+<tr>
+<td>Çok yavaş</td>
+<td>Bulut hesaplaması</td>
+<td>100 satır için saniyeler sürmeli; sürmezse yeniden hesapla (Ctrl+Alt+F9).</td>
+</tr>
+<tr>
+<td>CSV'de Türkçe karakter bozuk</td>
+<td>Yanlış CSV türü</td>
+<td><em>Farklı Kaydet &gt; <strong>CSV UTF-8 (Virgülle ayrılmış)</strong>.</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-sayılar-beklenenle-tutmuyorsa">5. Sayılar Beklenenle Tutmuyorsa</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Olası neden</th>
+<th>Ne yap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regresyon R² / katsayı farkı</td>
+<td>Farklı satır kümesi (ör. NULL yaşlı siparişler dahil)</td>
+<td>n = <strong>7.269</strong> mi? Y/X aralıkları aynı satır sayısında mı?</td>
+</tr>
+<tr>
+<td>Korelasyon farkı</td>
+<td>Satır sayısı farklı (17.954 olmalı)</td>
+<td>Doğru view (<code>Satis_Satir</code>) ve A:E aralığı.</td>
+</tr>
+<tr>
+<td>Betimsel std. sapma farkı</td>
+<td>Popülasyon vs örnek</td>
+<td>ToolPak <strong>örnek</strong> std. sapma (n−1) verir; beklenen değerler de örnektir.</td>
+</tr>
+<tr>
+<td>K-Means profili farklı</td>
+<td>Ölçekleme yapılmamış / farklı özellik</td>
+<td>HÜCRE 2'de <code>StandardScaler</code> var mı? Özellik sırası TotalSpend, OrderCount, AvgBasket.</td>
+</tr>
+<tr>
+<td>Kampanya kırılımı farklı</td>
+<td>Satır veya <code>DiscountRate</code> biçimi</td>
+<td><code>14_Gold_Dogrulama.sql</code> §6 sonuçlarını beklenenle karşılaştır.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-plan-b--canlı-demo-çökerse">6. Plan B – Canlı Demo Çökerse</h2>
+<table>
+<thead>
+<tr>
+<th>Senaryo</th>
+<th>Plan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gold SQL zinciri hata veriyor</strong></td>
+<td><code>sql\99_Hepsini_Calistir.sql</code> (SQLCMD) ile baştan kur; sonuç <a href="03_Beklenen_Cikti_Kontrol_Listesi.md">03_Beklenen_Cikti_Kontrol_Listesi.md</a> ile aynıysa canlı debug yerine kodu <strong>okuyarak</strong> anlat.</td>
+</tr>
+<tr>
+<td><strong>SQL Server hiç açılmıyor</strong></td>
+<td><code>python\o2_hesapla.py</code> çıktısını göster: aynı Gold mantığının pandas karşılığı aynı sayıları üretir. <em>&quot;SQL'in yaptığı işi bu çıktı doğruluyor.&quot;</em> BUS Matrix ve kodlar statik anlatılır.</td>
+</tr>
+<tr>
+<td><strong>Excel SQL'e bağlanamıyor</strong></td>
+<td>Oturumdan önce hazırladığın <code>O2_Analitik.xlsx</code> (üç tablo SQL'den yüklenmiş hâliyle kayıtlı) ile devam et; bağlantıyı yalnızca ekranda göster.</td>
+</tr>
+<tr>
+<td><strong>BUS Matrix canlıda zaman alıyor</strong></td>
+<td><a href="BUS_Matrix.xlsx">BUS_Matrix.xlsx</a> hazır kopyasını aç, 3 sayfayı gez.</td>
+</tr>
+<tr>
+<td><strong>ToolPak yok / çalışmıyor</strong></td>
+<td><code>python\o2_hesapla.py</code> çıktısındaki betimsel/korelasyon/regresyon tablolarını ekrana al (sayılar aynıdır); Excel'de tek değişkenli basit regresyonu <code>RKARE()</code> (RSQ), <code>EĞİM()</code> (SLOPE), <code>KESMENOKTASI()</code> (INTERCEPT) ile göster.</td>
+</tr>
+<tr>
+<td><strong>Python in Excel çalışmıyor</strong></td>
+<td><code>python\kmeans_yerel_test.py &lt;klasör&gt; --csv-yaz Musteri_Segmentleri.csv</code> ile aynı kodu yerelde çalıştır (çıktı tabloları ve CSV üretir). Hazır: <code>Musteri_Segmentleri_PlanB.csv</code>. O3 bu dosyayla devam eder.</td>
+</tr>
+<tr>
+<td><strong>Zaman kayması (&gt; 10 dk)</strong></td>
+<td><a href="01_Egitmen_Notlari.md">01_Egitmen_Notlari.md</a> §4'teki atlanabilir adımları sırayla at.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-oturum-öncesi-acil-durum-paketi-önerilen">7. Oturum Öncesi &quot;Acil Durum Paketi&quot; (önerilen)</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Provadan sonra <code>BikeRetailDW.bak</code> (Bronze + Silver + Gold dolu).</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1"><code>BUS_Matrix.xlsx</code> ve <code>O2_Analitik.xlsx</code> (hazır tablolar, ToolPak sonuçları ayrı sayfalarda).</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2"><code>Musteri_Segmentleri_PlanB.csv</code> ve <code>o2_hesapla.py</code> çıktısı (txt).</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3"><code>sql\</code> klasörü USB/OneDrive yedeği; dosyalar UTF-8 BOM'lu.</label></li>
+</ul>
+
+</body>
+</html>
